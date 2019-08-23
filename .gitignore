@@ -1,0 +1,7 @@
+Puzzle/.vs/
+*.user
+Puzzle/PuzzleApp/obj/
+Puzzle/PuzzleTests/obj/
+Puzzle/PuzzleTests/bin/
+Puzzle/PuzzleApp/bin/
+Puzzle/packages/
