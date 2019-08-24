@@ -4,49 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PuzzleApp.MVC;
 
 namespace PuzzleApp
 {
     class Game
     {
-        private const int defaultBoardSize = 4;
-        private const string renderTargetControlName = "BoardOutputTarget";
-
+        private NotifiableGameView view;
         private Board board;
-        private BoardRenderer renderer;
-        private Window mainWindow;
-        private BoardCellFactory currentCellProvider;
-        private App targetApp;
 
-        public Game(App targetApp)
+        public Game(NotifiableGameView view, Board board)
         {
-            this.targetApp = targetApp;
+            this.view = view;
+            this.board = board;
 
         }
-
-        public void Start()
-        {
-            CreateBoardAndRenderer();
-
-            renderer.Render();
-            
-        }
-
-        private void CreateBoardAndRenderer()
-        {
-            board = new Board(defaultBoardSize);
-            renderer = CreateBoardRendererAndCellProviderFor(board);
-
-        }
-        
-        private BoardRenderer CreateBoardRendererAndCellProviderFor(Board board)
-        {
-            var targetControl = targetApp.FindControl(renderTargetControlName);
-            currentCellProvider = new BoardCellFactory();
-            return new BoardRenderer(targetControl, board, currentCellProvider);
-
-        }
-        
 
     }
 

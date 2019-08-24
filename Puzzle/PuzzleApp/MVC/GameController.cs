@@ -10,7 +10,7 @@ namespace PuzzleApp.MVC
     {
         private Game targetGame;
 
-        GameController(Game targetGame)
+        public GameController(Game targetGame)
         {
             this.targetGame = targetGame;
 
@@ -19,7 +19,7 @@ namespace PuzzleApp.MVC
         //start game
         void StartGame()
         {
-            targetGame.Start();
+            
 
         }
         
