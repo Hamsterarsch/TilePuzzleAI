@@ -1,14 +1,10 @@
-﻿using System.Windows.Forms;
+﻿using System.Security.Cryptography.X509Certificates;
+using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
 
 namespace PuzzleApp
 {
-    struct CellIndices
-    {
-        public int column;
-        public int row;
 
-    }
 
     class BoardCellFactory
     {

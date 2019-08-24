@@ -15,7 +15,7 @@ namespace PuzzleApp
         [STAThread]
         static void Main()
         {
-            var game = new Game();
+           // var game = new Game();
 
 
             /*

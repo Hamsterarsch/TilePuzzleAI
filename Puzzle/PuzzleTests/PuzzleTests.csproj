@@ -50,6 +50,7 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CellIndicesTests.cs" />
     <Compile Include="DummyApp.cs" />
     <Compile Include="MVCTests.cs" />
     <Compile Include="TestValueProvider.cs" />

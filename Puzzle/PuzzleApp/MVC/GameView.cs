@@ -7,14 +7,14 @@ using System.Windows.Forms;
 
 namespace PuzzleApp.MVC
 {
-    interface OberservableGameView
+    interface ObservableGameView
     {
         void SetEventOnCellMoved(Action<CellIndices, CellIndices> Event);
         void SetEventOnGameWon(Action Event);
 
     }
 
-    class NotifiableGameView : OberservableGameView
+    class NotifiableGameView : ObservableGameView
     {
         private Action<CellIndices, CellIndices> OnCellMoved;
         private Action OnGameWon;
