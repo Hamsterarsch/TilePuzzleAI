@@ -36,8 +36,8 @@ namespace PuzzleTests
             window = new Window();
             var boardCellFactory = new BoardCellFactory();
             
-            boardRenderer = new BoardRenderer(board, window, boardCellFactory);
-            boardRenderer.RenderBoardToWindow();
+            boardRenderer = new BoardRenderer(window, board, boardCellFactory);
+            boardRenderer.Render();
 
         }
 

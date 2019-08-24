@@ -15,6 +15,11 @@ namespace PuzzleApp
         [STAThread]
         static void Main()
         {
+            var game = new Game();
+
+
+            /*
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -35,11 +40,11 @@ namespace PuzzleApp
                 throw new Exception("Could not find a control named 'BoardOutputTarget' to render the board to");
             }
             
-            var boardRenderer = new BoardRenderer(board, foundControls[0], cellFactory);
-            boardRenderer.RenderBoardToWindow();
+            var boardRenderer = new BoardRenderer(foundControls[0], board, cellFactory);
+            boardRenderer.Render();
 
             Application.Run(window);
-
+            */
         }
 
 

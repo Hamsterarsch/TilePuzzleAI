@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App.cs" />
+    <Compile Include="DefaultApp.cs" />
     <Compile Include="Board.cs" />
     <Compile Include="BoardCellFactory.cs" />
     <Compile Include="BoardRenderer.cs" />
@@ -61,6 +63,10 @@
     <Compile Include="ChangeImageControl.Designer.cs">
       <DependentUpon>ChangeImageControl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Game.cs" />
+    <Compile Include="AmbiguousSearchException.cs" />
+    <Compile Include="MVC\GameController.cs" />
+    <Compile Include="MVC\OberservableGameView.cs" />
     <Compile Include="Window.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -100,5 +106,6 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

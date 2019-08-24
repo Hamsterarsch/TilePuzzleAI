@@ -15,10 +15,10 @@ namespace PuzzleApp
         private BoardCellFactory cellFactory;
 
 
-        public BoardRenderer(Board board, Control outputControl, BoardCellFactory cellFactory)
+        public BoardRenderer(Control outputControl, Board board, BoardCellFactory cellFactory)
         {
-            this.board = board;
             this.outputControl = outputControl;
+            this.board = board;
             this.cellFactory = cellFactory;
 
         }
@@ -41,7 +41,7 @@ namespace PuzzleApp
 
         }
 
-        public void RenderBoardToWindow()
+        public void Render()
         {
             boardLayoutPanel = CreateBoardLayoutPanel();
 
