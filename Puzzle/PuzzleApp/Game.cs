@@ -20,6 +20,20 @@ namespace PuzzleApp
 
         }
 
+        public void OnCellClicked(CellIndices indices)
+        {
+            if (board.CellIsAdjacentToEmpty(indices))
+            {
+                var moveToPos = board.GetEmptyCellPos();
+
+                board.SwapCells(indices, moveToPos);
+
+                view.NotifyOnCellMoved(indices, moveToPos);
+            }
+            
+        }
+
+
     }
 
 

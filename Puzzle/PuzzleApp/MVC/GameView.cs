@@ -28,7 +28,8 @@ namespace PuzzleApp.MVC
 
         public void NotifyOnCellMoved(CellIndices FromPos, CellIndices ToPos)
         {
-            OnCellMoved.Invoke(FromPos, ToPos);
+            
+            OnCellMoved?.Invoke(FromPos, ToPos);
 
         }
 
@@ -41,7 +42,7 @@ namespace PuzzleApp.MVC
 
         public void NotifyOnGameWon()
         {
-            OnGameWon.Invoke();
+            OnGameWon?.Invoke();
 
         }
         

@@ -2,7 +2,7 @@
 
 namespace PuzzleApp
 {
-    struct CellIndices 
+    public struct CellIndices 
     {
         public int column;
         public int row;

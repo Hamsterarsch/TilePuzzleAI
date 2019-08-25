@@ -11,14 +11,31 @@ namespace PuzzleTests
     {
         private const int boardSize = 4;
 
-        [TestMethod]
-        public void GameCreation()
+        private NotifiableGameView view;
+        private Board board;
+        private Game game;
+        private GameController controller;
+
+
+        [TestInitialize]
+        public void Init()
         {
-            var view = new NotifiableGameView();
-            var game = new Game(view, new Board(boardSize));
+            this.view = new NotifiableGameView();
+            this.board = new Board(boardSize);
+            this.game = new Game(view, board);
 
-            var controller = new GameController(game);
+            this.controller = new GameController(game);
 
+        }
+
+        [TestMethod]
+        public void CellAdjacentToEmptyCellIsMovedOnClick()
+        {
+            controller.OnCellClicked(new CellIndices(3, 3));
+            controller.OnCellClicked(new CellIndices(2, 3));
+
+            Assert.IsFalse(board.IsCellCorrect(new CellIndices(3, 3)) );
+            
         }
         
 

@@ -16,19 +16,14 @@ namespace PuzzleApp.MVC
 
         }
 
-        //start game
-        void StartGame()
-        {
-            
+       public void OnCellClicked(CellIndices indices)
+       {
+           targetGame.OnCellClicked(indices);
 
-        }
-        
-        //field clicked
-        void OnCellClicked(CellIndices Indices)
-        {
-
-        }
+       }
         
 
     }
+
+
 }

@@ -25,7 +25,7 @@ namespace PuzzleApp
 
         public int GetExpectedBoardControlCount()
         {
-            return board.size * 2 + 1;
+            return board.Size() * 2 + 1;
 
         }
 
@@ -56,8 +56,8 @@ namespace PuzzleApp
         {
             var layout = new TableLayoutPanel
             {
-                RowCount = board.size,
-                ColumnCount = board.size,
+                RowCount = board.Size(),
+                ColumnCount = board.Size(),
                 Width = outputControl.Width,
                 Height = outputControl.Height
             };
@@ -104,14 +104,14 @@ namespace PuzzleApp
 
         private int GetRowHeightPercent()
         {
-            var normalizedPercent = 1f / board.size;
+            var normalizedPercent = 1f / board.Size();
             return (int)Math.Floor(100 * normalizedPercent);
 
         }
 
         private int GetColumnWidthPercent()
         {
-            var normalizedPercent = 1f / board.size;
+            var normalizedPercent = 1f / board.Size();
             return (int)Math.Floor(100 * normalizedPercent);
 
         }
@@ -146,7 +146,7 @@ namespace PuzzleApp
 
         private bool IsNotLowerRightCell(CellIndices indices)
         {
-            var threshold = board.size - 1;
+            var threshold = board.Size() - 1;
             return indices.column != threshold || indices.row != threshold;
 
         }

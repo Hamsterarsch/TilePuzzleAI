@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,18 +9,127 @@ namespace PuzzleApp
 {
     class Board
     {
-        public int size;
-
+        private int size;
+        private Cell[,] cells;
+        private CellIndices emptyCellPos;
 
         public Board(int size)
         {
             this.size = size;
+            this.cells = new Cell[size, size];
+            
+            InitCells(cells);
 
         }
 
-        
+        private void InitCells(Cell[,] cells)
+        {
+            for (int columnIndex = 0; columnIndex <= cells.GetUpperBound(0); ++columnIndex)
+            {
+                InitCellColumn(cells, columnIndex);
+            }
 
-        
+        }
+
+        private void InitCellColumn(Cell[,] cells, int columnIndex)
+        {
+            for (int rowIndex = 0; rowIndex <= cells.GetUpperBound(1); ++rowIndex)
+            {
+                var CellIndices = new CellIndices(columnIndex, rowIndex);
+                InitCell(ref this[CellIndices], CellIndices);
+            }
+
+        }
+
+        private ref Cell this[CellIndices indices]
+        {
+            get { return ref cells[indices.column, indices.row]; }
+
+        }
+
+        private void InitCell(ref Cell cell, CellIndices currentPosition)
+        {
+            if (IsNotLowerRightPos(currentPosition))
+            {
+                cell = new Cell(currentPosition);
+            }
+            else
+            {
+                this.emptyCellPos = currentPosition;
+            }
+
+        }
+
+        private bool IsNotLowerRightPos(CellIndices indices)
+        {
+            return indices.column != cells.GetUpperBound(0) 
+                   || indices.row != cells.GetUpperBound(1);
+
+        }
+
+
+
+        public int Size()
+        {
+            return size;
+        }
+
+        public bool IsCellCorrect(CellIndices indices)
+        {
+            if (this[indices] != null)
+            {
+                return this[indices].correctPosition == indices;
+            }
+            return true;
+
+        }
+
+        public CellIndices GetEmptyCellPos()
+        {
+            return emptyCellPos;
+
+        }
+
+
+
+
+        public void SwapCells(CellIndices firstCell, CellIndices secondCell)
+        {
+            var tempCell = this[firstCell];
+            this[firstCell] = this[secondCell];
+            this[secondCell] = tempCell;
+
+            if (CellIsEmpty(firstCell))
+            {
+                emptyCellPos = firstCell;
+            }
+
+            if (CellIsEmpty(secondCell))
+            {
+                emptyCellPos = secondCell;
+            }
+            
+
+        }
+
+        private bool CellIsEmpty(CellIndices indices)
+        {
+            return this[indices] == null;
+
+        }
+
+
+
+
+        public bool CellIsAdjacentToEmpty(CellIndices indices)
+        {
+            return (Math.Abs(indices.column - emptyCellPos.column) - 1) == 0
+                   ^ (Math.Abs(indices.row - emptyCellPos.row) - 1) == 0;
+
+        }
+
 
     }
+
+
 }

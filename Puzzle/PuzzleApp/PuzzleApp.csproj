@@ -47,6 +47,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Cell.cs" />
     <Compile Include="CellIndices.cs" />
     <Compile Include="DefaultApp.cs" />
     <Compile Include="Board.cs" />
