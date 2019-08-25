@@ -60,6 +60,7 @@ namespace PuzzleApp
                 ColumnCount = board.Size(),
                 Width = outputControl.Width,
                 Height = outputControl.Height
+                
             };
 
             AddStyleToRowsAndColumns(layout);
@@ -163,7 +164,44 @@ namespace PuzzleApp
         }
 
 
-    }
 
+        public void SwapCells(CellIndices firstIndices, CellIndices secondIndices)
+        {
+            var firstCell = GetCellAt(firstIndices);
+            var secondCell = GetCellAt(secondIndices);
+
+            if (firstCell != null)
+            {
+                boardLayoutPanel.SetCellPosition
+                (
+                    firstCell,
+                    new TableLayoutPanelCellPosition(secondIndices.column, secondIndices.row)
+                );
+                firstCell.UpdatePosition(secondIndices);
+
+            }
+
+            if (secondCell != null)
+            {
+                boardLayoutPanel.SetCellPosition
+                (
+                    secondCell,
+                    new TableLayoutPanelCellPosition(firstIndices.column, firstIndices.row)
+                );
+                firstCell.UpdatePosition(firstIndices);
+            }
+
+        }
+
+
+        private CellControl GetCellAt(CellIndices indices)
+        {
+            return boardLayoutPanel.GetControlFromPosition(indices.column, indices.row) as CellControl;
+
+        }
+
+
+    }
+    
 
 }

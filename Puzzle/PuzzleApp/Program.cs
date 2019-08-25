@@ -22,7 +22,9 @@ namespace PuzzleApp
             
             var outputControl = app.FindControl("BoardOutputTarget");
             var cellFactory = new BoardCellFactory(controller);
+
             var boardRenderer = new BoardRenderer(outputControl, board, cellFactory);
+            view.SetEventOnCellMoved(boardRenderer.SwapCells);
 
             boardRenderer.Render();
 

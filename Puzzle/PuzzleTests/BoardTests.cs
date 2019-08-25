@@ -36,6 +36,22 @@ namespace PuzzleTests
 
         }
 
+        [TestMethod]
+        public void EmptyAdjacency()
+        {
+            var board = new Board(4);
+
+            var CellIndices32 = new CellIndices(3, 2);
+            Assert.IsTrue(board.CellIsAdjacentToEmpty(CellIndices32));
+
+            var CellIndices22 = new CellIndices(2, 2);
+            Assert.IsFalse(board.CellIsAdjacentToEmpty(CellIndices22));
+            
+            var CellIndices12 = new CellIndices(1, 2);
+            Assert.IsFalse(board.CellIsAdjacentToEmpty(CellIndices12));
+
+        }
+
 
     }
 

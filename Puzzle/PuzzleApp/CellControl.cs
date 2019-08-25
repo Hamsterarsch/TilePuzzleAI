@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,12 @@ namespace PuzzleApp
             this.controller = controller;
             this.position = position;
 
+            SetStyle(ControlStyles.Selectable, false);
+            //FlatStyle = FlatStyle.Flat;
+            //FlatAppearance.BorderSize = 1;
+            //FlatAppearance.MouseOverBackColor =
+
+
         }
 
         protected override void OnClick(EventArgs e)
@@ -27,6 +34,11 @@ namespace PuzzleApp
 
             controller.OnCellClicked(position);
 
+        }
+
+        protected override bool ShowFocusCues
+        {
+            get { return false; }
         }
         
 

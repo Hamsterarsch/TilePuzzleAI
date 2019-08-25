@@ -123,8 +123,22 @@ namespace PuzzleApp
 
         public bool CellIsAdjacentToEmpty(CellIndices indices)
         {
-            return (Math.Abs(indices.column - emptyCellPos.column) - 1) == 0
-                   ^ (Math.Abs(indices.row - emptyCellPos.row) - 1) == 0;
+            return EmptyCelIsInTheSameColumnAndAdjacentRow(indices) 
+                   || EmptyCellIsInTheSameRowAndAdjacentColumn(indices);
+
+        }
+
+        private bool EmptyCelIsInTheSameColumnAndAdjacentRow(CellIndices indices)
+        {
+            return indices.column == emptyCellPos.column 
+                   && Math.Abs(emptyCellPos.row - indices.row) == 1;
+
+        }
+
+        private bool EmptyCellIsInTheSameRowAndAdjacentColumn(CellIndices indices)
+        {
+            return indices.row == emptyCellPos.row
+                   && Math.Abs(emptyCellPos.column - indices.column) == 1;
 
         }
 
