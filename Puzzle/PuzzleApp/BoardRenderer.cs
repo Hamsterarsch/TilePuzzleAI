@@ -117,6 +117,7 @@ namespace PuzzleApp
         }
 
 
+
         private void AddCellsToBoardLayout(TableLayoutPanel layout)
         {
             for (int columnIndex = 0; columnIndex < layout.ColumnCount; ++columnIndex)

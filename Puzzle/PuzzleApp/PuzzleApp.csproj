@@ -48,6 +48,9 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Cell.cs" />
+    <Compile Include="CellControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="CellIndices.cs" />
     <Compile Include="DefaultApp.cs" />
     <Compile Include="Board.cs" />
@@ -67,7 +70,7 @@
     </Compile>
     <Compile Include="Game.cs" />
     <Compile Include="AmbiguousSearchException.cs" />
-    <Compile Include="MVC\GameController.cs" />
+    <Compile Include="MVC\DefaultGameController.cs" />
     <Compile Include="MVC\GameView.cs" />
     <Compile Include="Window.cs">
       <SubType>Form</SubType>

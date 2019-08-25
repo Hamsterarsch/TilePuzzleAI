@@ -15,6 +15,11 @@ namespace PuzzleApp
         public BoardSizeControl()
         {
             InitializeComponent();
+
         }
+        
+
     }
+
+
 }

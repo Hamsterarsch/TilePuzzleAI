@@ -12,7 +12,7 @@ namespace PuzzleTests
         public void CanWindowBeCreated()
         {
             var board = new Board(TestValueProvider.BoardSize);
-            var window = new Window();
+            var window = new Window(new DummyGameView());
 
         }
 

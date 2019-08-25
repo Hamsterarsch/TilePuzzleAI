@@ -24,7 +24,7 @@ namespace PuzzleTests
             this.board = new Board(boardSize);
             this.game = new Game(view, board);
 
-            this.controller = new GameController(game);
+            this.controller = new DefaultGameController(game);
 
         }
 

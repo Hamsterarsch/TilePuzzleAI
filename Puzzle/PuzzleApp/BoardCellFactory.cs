@@ -1,6 +1,7 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+using PuzzleApp.MVC;
 
 namespace PuzzleApp
 {
@@ -8,9 +9,18 @@ namespace PuzzleApp
 
     class BoardCellFactory
     {
-        public Button MakeBoardCell(CellIndices Indices)
+        private GameController controller;
+
+
+        public BoardCellFactory(GameController controller)
         {
-            var cell = new Button
+            this.controller = controller;
+
+        }
+
+        public CellControl MakeBoardCell(CellIndices indices)
+        {
+            var cell = new CellControl(controller, indices)
             {
                 Anchor = ~AnchorStyles.None,
                 Margin = Padding.Empty,

@@ -6,11 +6,18 @@ using System.Threading.Tasks;
 
 namespace PuzzleApp.MVC
 {
-    class GameController
+    interface GameController
+    {
+        void OnCellClicked(CellIndices indices);
+
+
+    }
+
+    class DefaultGameController : GameController
     {
         private Game targetGame;
 
-        public GameController(Game targetGame)
+        public DefaultGameController(Game targetGame)
         {
             this.targetGame = targetGame;
 

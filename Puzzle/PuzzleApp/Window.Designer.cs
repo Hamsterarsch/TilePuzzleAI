@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.BoardOutputTarget = new System.Windows.Forms.Panel();
-            this.boardSizeControl1 = new PuzzleApp.BoardSizeControl();
-            this.changeImageControl1 = new PuzzleApp.ChangeImageControl();
+            this.ctrl_boardSize = new PuzzleApp.BoardSizeControl();
+            this.ctrl_ChangeImage = new PuzzleApp.ChangeImageControl();
             this.SuspendLayout();
             // 
             // BoardOutputTarget
@@ -40,27 +40,27 @@
             this.BoardOutputTarget.Size = new System.Drawing.Size(600, 600);
             this.BoardOutputTarget.TabIndex = 0;
             // 
-            // boardSizeControl1
+            // ctrl_boardSize
             // 
-            this.boardSizeControl1.Location = new System.Drawing.Point(628, 12);
-            this.boardSizeControl1.Name = "boardSizeControl1";
-            this.boardSizeControl1.Size = new System.Drawing.Size(188, 36);
-            this.boardSizeControl1.TabIndex = 1;
+            this.ctrl_boardSize.Location = new System.Drawing.Point(628, 12);
+            this.ctrl_boardSize.Name = "ctrl_boardSize";
+            this.ctrl_boardSize.Size = new System.Drawing.Size(188, 36);
+            this.ctrl_boardSize.TabIndex = 1;
             // 
-            // changeImageControl1
+            // ctrl_ChangeImage
             // 
-            this.changeImageControl1.Location = new System.Drawing.Point(637, 54);
-            this.changeImageControl1.Name = "changeImageControl1";
-            this.changeImageControl1.Size = new System.Drawing.Size(170, 59);
-            this.changeImageControl1.TabIndex = 2;
+            this.ctrl_ChangeImage.Location = new System.Drawing.Point(637, 54);
+            this.ctrl_ChangeImage.Name = "ctrl_ChangeImage";
+            this.ctrl_ChangeImage.Size = new System.Drawing.Size(170, 59);
+            this.ctrl_ChangeImage.TabIndex = 2;
             // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(828, 623);
-            this.Controls.Add(this.changeImageControl1);
-            this.Controls.Add(this.boardSizeControl1);
+            this.Controls.Add(this.ctrl_ChangeImage);
+            this.Controls.Add(this.ctrl_boardSize);
             this.Controls.Add(this.BoardOutputTarget);
             this.DoubleBuffered = true;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -74,8 +74,8 @@
 
         #endregion
         private System.Windows.Forms.Panel BoardOutputTarget;
-        private BoardSizeControl boardSizeControl1;
-        private ChangeImageControl changeImageControl1;
+        private BoardSizeControl ctrl_boardSize;
+        private ChangeImageControl ctrl_ChangeImage;
     }
 }
 

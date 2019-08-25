@@ -53,6 +53,8 @@
     <Compile Include="BoardTests.cs" />
     <Compile Include="CellIndicesTests.cs" />
     <Compile Include="DummyApp.cs" />
+    <Compile Include="DummyGameController.cs" />
+    <Compile Include="DummyGameView.cs" />
     <Compile Include="MVCTests.cs" />
     <Compile Include="TestValueProvider.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

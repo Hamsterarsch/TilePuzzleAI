@@ -17,11 +17,11 @@ namespace PuzzleApp
             var board = new Board(4);
             var game = new Game(view, board);
 
-            var controller = new GameController(game);
-            var app = new DefaultApp();
+            var controller = new DefaultGameController(game);
+            var app = new DefaultApp(view);
             
             var outputControl = app.FindControl("BoardOutputTarget");
-            var cellFactory = new BoardCellFactory();
+            var cellFactory = new BoardCellFactory(controller);
             var boardRenderer = new BoardRenderer(outputControl, board, cellFactory);
 
             boardRenderer.Render();

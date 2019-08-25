@@ -7,15 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PuzzleApp.MVC;
 
 namespace PuzzleApp
 {
     partial class Window : Form
     {
-        public Window()
+        private ObservableGameView view;
+
+
+        public Window(ObservableGameView view)
         {
             InitializeComponent();
+
+            this.view = view;
             
+
         }
 
         private void Window_Load(object sender, EventArgs e)

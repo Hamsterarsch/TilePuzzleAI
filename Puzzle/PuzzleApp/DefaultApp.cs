@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using PuzzleApp.MVC;
 
 namespace PuzzleApp
 {
@@ -13,12 +14,12 @@ namespace PuzzleApp
         private string controlSearchName;
 
 
-        public DefaultApp()
+        public DefaultApp(ObservableGameView view)
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            mainWindow = new Window();
+            mainWindow = new Window(view);
 
 
         }
