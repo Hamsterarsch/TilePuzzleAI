@@ -21,7 +21,7 @@ namespace PuzzleApp
             this.size = size;
             this.cells = new Cell[size, size];
             this.correctlyOrderedCells = GetCellAmount();
-
+            
             InitCells(cells);
 
         }
@@ -70,7 +70,7 @@ namespace PuzzleApp
                         get { return ref cells[indices.column, indices.row]; }
 
                     }
-        
+
         public int SizeInCells()
         {
             return size;

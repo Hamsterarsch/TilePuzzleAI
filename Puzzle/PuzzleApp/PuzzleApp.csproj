@@ -54,6 +54,7 @@
     <Compile Include="CellIndices.cs" />
     <Compile Include="DefaultApp.cs" />
     <Compile Include="MoveGenerator.cs" />
+    <Compile Include="PriorityQueue.cs" />
     <Compile Include="PuzzleSolver.cs" />
     <Compile Include="SquareBoard.cs" />
     <Compile Include="BoardCellFactory.cs" />
