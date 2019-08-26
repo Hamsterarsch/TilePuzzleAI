@@ -16,6 +16,68 @@ namespace PuzzleApp
         private CellIndices emptyCellPos;
         private int correctlyOrderedCells;
 
+        public static bool operator ==(SquareBoard Lhs, SquareBoard Rhs)
+        {
+            return Lhs.correctlyOrderedCells == Rhs.correctlyOrderedCells
+                   && Lhs.emptyCellPos == Rhs.emptyCellPos
+                   && AreCellsEqual(Lhs.cells, Rhs.cells);
+
+        }
+
+            private static bool AreCellsEqual(Cell[,] cells1, Cell[,] cells2)
+            {
+                bool bCellsAreEqual = true;
+
+                for (int columnIndex = 0; columnIndex < cells1.GetUpperBound(0); ++columnIndex)
+                {
+                    for (int rowIndex = 0; rowIndex < cells1.GetUpperBound(1); ++rowIndex)
+                    {
+                        bCellsAreEqual &= cells1[columnIndex, rowIndex] == cells2[columnIndex, rowIndex];
+                        if (!bCellsAreEqual)
+                        {
+                            return false;
+                        }
+
+                    }
+                }
+
+                return true;
+            }
+        
+        public static bool operator !=(SquareBoard Lhs, SquareBoard Rhs)
+        {
+            return !(Lhs == Rhs);
+
+        }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = size;
+                hashCode = (hashCode * 397) ^ GetCellHash();
+                hashCode = (hashCode * 397) ^ emptyCellPos.GetHashCode();
+                hashCode = (hashCode * 397) ^ correctlyOrderedCells;
+                return hashCode;
+            }
+
+        }
+
+            private int GetCellHash()
+            {
+                var hashCode = cells.Length;
+                foreach (Cell cell in cells)
+                {
+                    unchecked
+                    {
+                        hashCode = hashCode * cell.GetHashCode();
+                    }
+                }
+
+                return hashCode;
+
+            }
+
         public SquareBoard(int size)
         {
             this.size = size;
