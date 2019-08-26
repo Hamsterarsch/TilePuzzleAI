@@ -15,7 +15,6 @@ namespace PuzzleApp
     {
         private ObservableGameView view;
 
-
         public Window(ObservableGameView view, GameController controller)
         {
             InitializeComponent();
@@ -23,7 +22,13 @@ namespace PuzzleApp
             this.view = view;
 
             this.ctrl_boardSize.OnNewSizeSelected += controller.ChangeBoardSize;
+            
 
+        }
+
+        public void SetEventOnNewImageSelected(Action<string> Event)
+        {
+            this.ctrl_ChangeImage.SetEventOnNewImageSelected(Event);
 
         }
 

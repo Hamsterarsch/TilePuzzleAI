@@ -13,7 +13,7 @@ namespace PuzzleApp
     public partial class ChangeImageControl : UserControl
     {
         private Image currentImage;
-        private Action<Image> OnImageSelected;
+        private Action<string> OnImageSelected;
 
         public ChangeImageControl()
         {
@@ -23,7 +23,7 @@ namespace PuzzleApp
 
         }
 
-        public void SetEventOnNewImageSelected(Action<Image> Event)
+        public void SetEventOnNewImageSelected(Action<string> Event)
         {
             OnImageSelected = Event;
 
@@ -37,9 +37,7 @@ namespace PuzzleApp
 
         private void Prompt_OpenImageFile_FileOk(object sender, CancelEventArgs e)
         {
-            currentImage = Image.FromFile(prompt_OpenImageFile.FileName);
-
-            OnImageSelected?.Invoke(currentImage);
+            OnImageSelected?.Invoke(prompt_OpenImageFile.FileName);
 
         }
         

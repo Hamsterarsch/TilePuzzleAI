@@ -30,6 +30,8 @@ namespace PuzzleApp
             this.controller = new DefaultGameController(game);
             mainWindow = new Window(view, controller);
 
+            mainWindow.SetEventOnNewImageSelected(ChangePuzzleImage);
+
             var outputControl = FindControl("BoardOutputTarget");
             var defaultImage = Image.FromFile("C:\\Users\\Hamsterarsch\\Desktop\\LnkdinPB.png");
             var cellFactory = new BoardCellFactory(controller, defaultImage);
