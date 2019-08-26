@@ -148,16 +148,15 @@ namespace PuzzleApp
 
         private bool IsNotLowerRightCell(CellIndices indices)
         {
-            var threshold = board.Size() - 1;
-            return indices.column != threshold || indices.row != threshold;
-
+            return board.GetEmptyCellPos() != indices;
+            
         }
 
         private void AddCellToBoardAt(CellIndices indices)
         {
             boardLayoutPanel.Controls.Add
             (
-                cellFactory.MakeBoardCell(indices),
+                cellFactory.MakeBoardCell(indices, board.GetCorrectCellPosForCellAt(indices)),
                 indices.column, indices.row
             );
             

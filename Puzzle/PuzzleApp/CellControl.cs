@@ -13,12 +13,16 @@ namespace PuzzleApp
     {
         private GameController controller;
         private CellIndices position;
+        private CellIndices correctPos;
+        private Image puzzleImage;
 
 
-        public CellControl(GameController controller, CellIndices position)
+        public CellControl(GameController controller, CellIndices position, CellIndices correctPos, Image backgroundImage)
         {
             this.controller = controller;
             this.position = position;
+            this.correctPos = correctPos;
+            this.puzzleImage = backgroundImage;
 
             SetStyle(ControlStyles.Selectable, false);
             //FlatStyle = FlatStyle.Flat;
@@ -40,7 +44,18 @@ namespace PuzzleApp
         {
             get { return false; }
         }
-        
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            base.OnPaintBackground(e);
+
+            var rect = ClientRectangle;
+            rect.Width = rect.Width - puzzleImage.Width;
+            rect.Height = rect.Height - puzzleImage.Height;
+
+            e.Graphics.DrawImage(puzzleImage, rect);
+
+        }
 
 
         public void UpdatePosition(CellIndices position)

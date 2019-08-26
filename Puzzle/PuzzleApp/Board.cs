@@ -90,6 +90,11 @@ namespace PuzzleApp
 
         }
 
+        public CellIndices GetCorrectCellPosForCellAt(CellIndices indices)
+        {
+            return this[indices].correctPosition;
+
+        }
 
 
 

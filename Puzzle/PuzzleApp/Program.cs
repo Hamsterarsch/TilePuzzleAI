@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,7 +22,9 @@ namespace PuzzleApp
             var app = new DefaultApp(view);
             
             var outputControl = app.FindControl("BoardOutputTarget");
-            var cellFactory = new BoardCellFactory(controller);
+
+            var defaultImage = Image.FromFile("C:\\Users\\Hamsterarsch\\Desktop\\LnkdinPB.png");
+            var cellFactory = new BoardCellFactory(controller, defaultImage);
 
             var boardRenderer = new BoardRenderer(outputControl, board, cellFactory);
             view.SetEventOnCellMoved(boardRenderer.SwapCells);
