@@ -34,7 +34,7 @@ namespace PuzzleTests
             controller.OnCellClicked(new CellIndices(3, 3));
             controller.OnCellClicked(new CellIndices(2, 3));
 
-            Assert.IsFalse(board.IsCellCorrect(new CellIndices(3, 3)) );
+            Assert.IsFalse(board.CellIsCorrect(new CellIndices(3, 3)) );
             
         }
 

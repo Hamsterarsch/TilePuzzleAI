@@ -12,11 +12,13 @@ namespace PuzzleApp
     {
         private NotifiableGameView view;
         private SquareBoard board;
+        private int correctlyOrderedCells;
 
         public Game(NotifiableGameView view, SquareBoard board)
         {
             this.view = view;
             this.board = board;
+            this.correctlyOrderedCells = board.GetCellAmount();
 
             DisorderBoard();
 
@@ -28,12 +30,28 @@ namespace PuzzleApp
             {
                 var moveToPos = board.GetEmptyCellPos();
 
-                board.SwapCells(indices, moveToPos);
+                MoveCellTo(indices, moveToPos);
 
                 view.NotifyOnCellMoved(indices, moveToPos);
             }
             
         }
+
+            private void MoveCellTo(CellIndices cellIndices, CellIndices moveTo)
+            {
+                if (board.CellIsCorrect(cellIndices))
+                {
+                    --correctlyOrderedCells;
+                }
+
+                board.SwapCells(cellIndices, moveTo);
+
+                if (board.CellIsCorrect(moveTo))
+                {
+                    ++correctlyOrderedCells;
+                }
+
+            }
 
         public void ChangeBoardSize(int size)
         {
@@ -44,8 +62,15 @@ namespace PuzzleApp
 
         }
 
+        public bool IsCompleted()
+        {
+            return correctlyOrderedCells == board.GetCellAmount();
+
+        }
+
         public void DisorderBoard()
         {
+            //todo: fix magic tokens and abstraction levels
             var moveGenerator = new MoveGenerator(board);
 
             const int disorderSteps = 80;
@@ -55,7 +80,7 @@ namespace PuzzleApp
                 OnCellClicked(move);
             }
 
-            //this is too predictable
+            //this may be too predictable
             //align column
             while (board.GetEmptyCellPos().column != board.SizeInCells() - 1)
             {

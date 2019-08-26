@@ -12,9 +12,9 @@ namespace PuzzleTests
         {
             var board = new SquareBoard(4);
 
-            Assert.IsTrue(board.IsCellCorrect(new CellIndices(0, 0)) );
-            Assert.IsTrue(board.IsCellCorrect(new CellIndices(2, 3)) );
-            Assert.IsTrue(board.IsCellCorrect(new CellIndices(3, 3)) );
+            Assert.IsTrue(board.CellIsCorrect(new CellIndices(0, 0)) );
+            Assert.IsTrue(board.CellIsCorrect(new CellIndices(2, 3)) );
+            Assert.IsTrue(board.CellIsCorrect(new CellIndices(3, 3)) );
 
         }
 
@@ -27,12 +27,12 @@ namespace PuzzleTests
 
             board.SwapCells(CellIndices00, CellIndices22);
 
-            Assert.IsFalse(board.IsCellCorrect(CellIndices00));
+            Assert.IsFalse(board.CellIsCorrect(CellIndices00));
 
             board.SwapCells(CellIndices00, CellIndices22);
 
-            Assert.IsTrue(board.IsCellCorrect(CellIndices00));
-            Assert.IsTrue(board.IsCellCorrect(CellIndices22));
+            Assert.IsTrue(board.CellIsCorrect(CellIndices00));
+            Assert.IsTrue(board.CellIsCorrect(CellIndices22));
 
         }
 

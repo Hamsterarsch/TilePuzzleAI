@@ -72,7 +72,13 @@ namespace PuzzleApp
             return size;
         }
 
-        public bool IsCellCorrect(CellIndices indices)
+        public int GetCellAmount()
+        {
+            return size * size - 1;
+
+        }
+
+        public bool CellIsCorrect(CellIndices indices)
         {
             if (this[indices] != null)
             {
