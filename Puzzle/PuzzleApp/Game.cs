@@ -40,6 +40,15 @@ namespace PuzzleApp
 
         }
 
+        private void DisorderBoard()
+        {
+
+        }
+        /*
+        private CellIndices GetValidMove()
+        {
+            //board.GetCellAdjacentToEmpty()
+        }*/
 
     }
 

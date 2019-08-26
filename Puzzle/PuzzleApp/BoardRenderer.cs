@@ -48,6 +48,12 @@ namespace PuzzleApp
 
         }
 
+        public void Render(SquareBoard board)
+        {
+            this.board = board;
+            Render();
+
+        }
 
         public void Render()
         {
@@ -60,167 +66,149 @@ namespace PuzzleApp
             outputControl.Invalidate();
 
         }
-
-        public void Render(SquareBoard board)
-        {
-            this.board = board;
-            Render();
-
-        }
         
-        private TableLayoutPanel CreateBoardLayoutPanel()
-        {
-            var layout = new TableLayoutPanel
+            private TableLayoutPanel CreateBoardLayoutPanel()
             {
-                RowCount = board.SizeInCells(),
-                ColumnCount = board.SizeInCells(),
-                Width = outputControl.Width,
-                Height = outputControl.Height
-                
-            };
-
-            AddStyleToRowsAndColumns(layout);
-            return layout;
-
-        }
-
-        private void AddStyleToRowsAndColumns(TableLayoutPanel layout)
-        {
-            
-            for (var rowIndex = 0; rowIndex < layout.RowCount; ++rowIndex)
-            {
-                layout.RowStyles.Add(MakeRowStyle());
-            }
-
-            for (var columnIndex = 0; columnIndex < layout.ColumnCount; ++columnIndex)
-            {
-                layout.ColumnStyles.Add(MakeColumnStyle());
-            }
-            
-        }
-
-        private RowStyle MakeRowStyle()
-        {
-            return new RowStyle
-            {
-                SizeType = SizeType.Percent,
-                Height = GetRowHeightPercent()
-            };
-
-        }
-
-        private ColumnStyle MakeColumnStyle()
-        {
-            return new ColumnStyle
-            {
-                SizeType = SizeType.Percent,
-                Width = GetColumnWidthPercent()
-            };
-
-        }
-
-        private int GetRowHeightPercent()
-        {
-            var normalizedPercent = 1f / board.SizeInCells();
-            return (int)Math.Floor(100 * normalizedPercent);
-
-        }
-
-        private int GetColumnWidthPercent()
-        {
-            var normalizedPercent = 1f / board.SizeInCells();
-            return (int)Math.Floor(100 * normalizedPercent);
-
-        }
-
-
-
-        private void AddCellsToBoardLayout(TableLayoutPanel layout)
-        {
-            for (int columnIndex = 0; columnIndex < layout.ColumnCount; ++columnIndex)
-            {
-                AddCellsToLayoutAtColumn(columnIndex);
-            }
-            
-        }
-
-        private void AddCellsToLayoutAtColumn(int columnIndex)
-        {
-            for (int rowIndex = 0; rowIndex < boardLayoutPanel.RowCount; ++rowIndex)
-            {
-                var cellIndices = new CellIndices
+                var layout = new TableLayoutPanel
                 {
-                    column = columnIndex,
-                    row = rowIndex
+                    RowCount = board.SizeInCells(),
+                    ColumnCount = board.SizeInCells(),
+                    Width = outputControl.Width,
+                    Height = outputControl.Height
+                    
                 };
 
-                if (IsNotLowerRightCell(cellIndices))
-                {
-                    AddCellToBoardAt(cellIndices);
-                }
+                AddStyleToRowsAndColumns(layout);
+                return layout;
+
             }
 
-        }
+                private void AddStyleToRowsAndColumns(TableLayoutPanel layout)
+                {
+                    
+                    for (var rowIndex = 0; rowIndex < layout.RowCount; ++rowIndex)
+                    {
+                        layout.RowStyles.Add(MakeRowStyle());
+                    }
 
-        private bool IsNotLowerRightCell(CellIndices indices)
-        {
-            return board.GetEmptyCellPos() != indices;
-            
-        }
+                    for (var columnIndex = 0; columnIndex < layout.ColumnCount; ++columnIndex)
+                    {
+                        layout.ColumnStyles.Add(MakeColumnStyle());
+                    }
+                    
+                }
 
-        private void AddCellToBoardAt(CellIndices indices)
-        {
-            var correctPos = board.GetCorrectCellPosForCellAt(indices);
-            
-            boardLayoutPanel.Controls.Add
-            (
-                cellFactory.MakeBoardCell(indices, correctPos, MakeCellBackgroundRectangle(indices)),
-                indices.column, indices.row
-            );
-            
-        }
+                    private RowStyle MakeRowStyle()
+                    {
+                        return new RowStyle
+                        {
+                            SizeType = SizeType.Percent,
+                            Height = GetCellSizePercent()
+                        };
 
-        private Rectangle MakeCellBackgroundRectangle(CellIndices cellIndices)
-        {
-            var backgroundRect = OffsetBackgroundRect(boardLayoutPanel.ClientRectangle, cellIndices);
-            return ScaleBackgroundRectToBorder(backgroundRect);
+                    }
 
-        }
+                        private int GetCellSizePercent()
+                        {
+                            var normalizedPercent = 1f / board.SizeInCells();
+                            return (int)Math.Floor(100 * normalizedPercent);
 
-        private Rectangle OffsetBackgroundRect(Rectangle rect, CellIndices cellIndices)
-        {
-            var correctPos = board.GetCorrectCellPosForCellAt(cellIndices);
-            var cellIncrement = GetCellIncrementForBoard();
+                        }
 
-            rect.X -= cellIncrement * correctPos.column;
-            rect.Y -= cellIncrement * correctPos.row;
+                    private ColumnStyle MakeColumnStyle()
+                    {
+                        return new ColumnStyle
+                        {
+                            SizeType = SizeType.Percent,
+                            Width = GetCellSizePercent()
+                        };
 
-            return rect;
+                    }
 
-        }
+            private void AddCellsToBoardLayout(TableLayoutPanel layout)
+            {
+                for (int columnIndex = 0; columnIndex < layout.ColumnCount; ++columnIndex)
+                {
+                    AddCellsToLayoutAtColumn(columnIndex);
+                }
+                
+            }
 
-        private int GetCellIncrementForBoard()
-        {
-            return boardLayoutPanel.ClientRectangle.Width / board.SizeInCells();
+                private void AddCellsToLayoutAtColumn(int columnIndex)
+                {
+                    for (int rowIndex = 0; rowIndex < boardLayoutPanel.RowCount; ++rowIndex)
+                    {
+                        var cellIndices = new CellIndices
+                        {
+                            column = columnIndex,
+                            row = rowIndex
+                        };
 
-        }
+                        if (IsNotLowerRightCell(cellIndices))
+                        {
+                            AddCellToBoardAt(cellIndices);
+                        }
+                    }
 
-        private Rectangle ScaleBackgroundRectToBorder(Rectangle rect)
-        {
-            int Scale = 6;
+                }
 
-            rect.X -= Scale/2;
-            rect.Y -= Scale/2;
+                    private bool IsNotLowerRightCell(CellIndices indices)
+                    {
+                        return board.GetEmptyCellPos() != indices;
+                        
+                    }
 
-            rect.Width += Scale;
-            rect.Height += Scale;
+                    private void AddCellToBoardAt(CellIndices indices)
+                    {
+                        var correctPos = board.GetCorrectCellPosForCellAt(indices);
+                        
+                        boardLayoutPanel.Controls.Add
+                        (
+                            cellFactory.MakeBoardCell(indices, correctPos, MakeCellBackgroundRectangle(indices)),
+                            indices.column, indices.row
+                        );
+                        
+                    }
 
-            return rect;
+                        private Rectangle MakeCellBackgroundRectangle(CellIndices cellIndices)
+                        {
+                            var backgroundRect = OffsetBackgroundRect(boardLayoutPanel.ClientRectangle, cellIndices);
+                            return ScaleBackgroundRectToBorder(backgroundRect);
 
-        }
+                        }
 
+                            private Rectangle OffsetBackgroundRect(Rectangle rect, CellIndices cellIndices)
+                            {
+                                var correctPos = board.GetCorrectCellPosForCellAt(cellIndices);
+                                var cellIncrement = GetCellIncrementForBoard();
 
+                                rect.X -= cellIncrement * correctPos.column;
+                                rect.Y -= cellIncrement * correctPos.row;
 
+                                return rect;
+
+                            }
+
+                                private int GetCellIncrementForBoard()
+                                {
+                                    return boardLayoutPanel.ClientRectangle.Width / board.SizeInCells();
+
+                                }
+
+                            private Rectangle ScaleBackgroundRectToBorder(Rectangle rect)
+                            {
+                                int Scale = 6;
+
+                                rect.X -= Scale/2;
+                                rect.Y -= Scale/2;
+
+                                rect.Width += Scale;
+                                rect.Height += Scale;
+
+                                return rect;
+
+                            }
+        
         public void SwapCells(CellIndices firstIndices, CellIndices secondIndices)
         {
             var firstCell = GetCellAt(firstIndices);
@@ -231,25 +219,25 @@ namespace PuzzleApp
             
         }
         
-        private CellControl GetCellAt(CellIndices indices)
-        {
-            return boardLayoutPanel.GetControlFromPosition(indices.column, indices.row) as CellControl;
-
-        }
-
-        private void SetCellPosition(CellControl cell, CellIndices newPos)
-        {
-            if (cell != null)
+            private CellControl GetCellAt(CellIndices indices)
             {
-                boardLayoutPanel.SetCellPosition
-                (
-                    cell,
-                    new TableLayoutPanelCellPosition(newPos.column, newPos.row)
-                );
-                cell.UpdatePosition(newPos);
+                return boardLayoutPanel.GetControlFromPosition(indices.column, indices.row) as CellControl;
+
             }
 
-        }
+            private void SetCellPosition(CellControl cell, CellIndices newPos)
+            {
+                if (cell != null)
+                {
+                    boardLayoutPanel.SetCellPosition
+                    (
+                        cell,
+                        new TableLayoutPanelCellPosition(newPos.column, newPos.row)
+                    );
+                    cell.UpdatePosition(newPos);
+                }
+
+            }
 
 
     }

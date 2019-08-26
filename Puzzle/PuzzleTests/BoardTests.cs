@@ -51,8 +51,8 @@ namespace PuzzleTests
             Assert.IsFalse(board.CellIsAdjacentToEmpty(CellIndices12));
 
         }
-
-
+        
+        
     }
 
 
