@@ -6,10 +6,22 @@ using System.Threading.Tasks;
 
 namespace PuzzleApp
 {
-    class PuzzleSolver
+    class Node
     {
         private SquareBoard board;
 
+        public Node(SquareBoard Board)
+        {
+            this.board = Board;
+
+        }
+
+    }
+
+    class PuzzleSolver
+    {
+        private SquareBoard board;
+        
 
         public PuzzleSolver(SquareBoard board)
         {

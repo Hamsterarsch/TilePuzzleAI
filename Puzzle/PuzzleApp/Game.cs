@@ -12,13 +12,12 @@ namespace PuzzleApp
     {
         private NotifiableGameView view;
         private SquareBoard board;
-        private int correctlyOrderedCells;
+
 
         public Game(NotifiableGameView view, SquareBoard board)
         {
             this.view = view;
             this.board = board;
-            this.correctlyOrderedCells = board.GetCellAmount();
 
             DisorderBoard();
 
@@ -30,29 +29,13 @@ namespace PuzzleApp
             {
                 var moveToPos = board.GetEmptyCellPos();
 
-                MoveCellTo(indices, moveToPos);
-
+                board.SwapCells(indices, moveToPos);
+                
                 view.NotifyOnCellMoved(indices, moveToPos);
             }
             
         }
-
-            private void MoveCellTo(CellIndices cellIndices, CellIndices moveTo)
-            {
-                if (board.CellIsCorrect(cellIndices))
-                {
-                    --correctlyOrderedCells;
-                }
-
-                board.SwapCells(cellIndices, moveTo);
-
-                if (board.CellIsCorrect(moveTo))
-                {
-                    ++correctlyOrderedCells;
-                }
-
-            }
-
+        
         public void ChangeBoardSize(int size)
         {
             this.board = new SquareBoard(size);
@@ -64,7 +47,7 @@ namespace PuzzleApp
 
         public bool IsCompleted()
         {
-            return correctlyOrderedCells == board.GetCellAmount();
+            return board.GetCorrectCellAmount() == board.GetCellAmount();
 
         }
 

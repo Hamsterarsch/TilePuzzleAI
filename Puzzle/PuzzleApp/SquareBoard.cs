@@ -1,8 +1,10 @@
 ﻿using System;
 using System.CodeDom;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace PuzzleApp
@@ -12,12 +14,14 @@ namespace PuzzleApp
         private int size;
         private Cell[,] cells;
         private CellIndices emptyCellPos;
+        private int correctlyOrderedCells;
 
         public SquareBoard(int size)
         {
             this.size = size;
             this.cells = new Cell[size, size];
-            
+            this.correctlyOrderedCells = GetCellAmount();
+
             InitCells(cells);
 
         }
@@ -78,6 +82,12 @@ namespace PuzzleApp
 
         }
 
+        public int GetCorrectCellAmount()
+        {
+            return correctlyOrderedCells;
+
+        }
+
         public bool CellIsCorrect(CellIndices indices)
         {
             if (this[indices] != null)
@@ -102,10 +112,14 @@ namespace PuzzleApp
 
         public void SwapCells(CellIndices firstCell, CellIndices secondCell)
         {
+            Debug.Assert(firstCell != secondCell);
+
+            UpdateCorrectCellState(firstCell, secondCell);
+
             var tempCell = this[firstCell];
             this[firstCell] = this[secondCell];
             this[secondCell] = tempCell;
-
+            
             if (CellIsEmpty(firstCell))
             {
                 emptyCellPos = firstCell;
@@ -116,14 +130,63 @@ namespace PuzzleApp
                 emptyCellPos = secondCell;
             }
             
-
         }
 
-            private bool CellIsEmpty(CellIndices indices)
+            private void UpdateCorrectCellState(CellIndices firstCell, CellIndices secondCell)
             {
-                return this[indices] == null;
+                if (CellMovesFromCorrectToIncorrectPos(firstCell, secondCell))
+                {
+                    --correctlyOrderedCells;
+                }
+
+                if (CellMovesFromCorrectToIncorrectPos(secondCell, firstCell))
+                {
+                    --correctlyOrderedCells;
+                }
+
+                if (CellMovesFromIncorrectToCorrectPos(firstCell, secondCell))
+                {
+                    ++correctlyOrderedCells;
+                }
+
+                if (CellMovesFromIncorrectToCorrectPos(secondCell, firstCell))
+                {
+                    ++correctlyOrderedCells;
+                }
 
             }
+
+                private bool CellMovesFromCorrectToIncorrectPos(CellIndices cellIndices, CellIndices moveTo)
+                {
+                    if (CellIsNotEmpty(cellIndices))
+                    {
+                        return this[cellIndices].correctPosition == cellIndices;
+                    }
+                    return false;
+
+                }
+
+                    private bool CellIsNotEmpty(CellIndices indices)
+                    {
+                        return !CellIsEmpty(indices);
+
+                    }
+
+                    private bool CellIsEmpty(CellIndices indices)
+                    {
+                        return this[indices] == null;
+
+                    }
+
+                private bool CellMovesFromIncorrectToCorrectPos(CellIndices cellIndices, CellIndices moveTo)
+                {
+                    if (CellIsNotEmpty(cellIndices))
+                    {
+                        return this[cellIndices].correctPosition == moveTo;
+                    }
+                    return false;
+
+                }
 
         public bool CellIsAdjacentToEmpty(CellIndices indices)
         {
