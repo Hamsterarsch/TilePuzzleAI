@@ -37,6 +37,20 @@ namespace PuzzleTests
             Assert.IsFalse(board.IsCellCorrect(new CellIndices(3, 3)) );
             
         }
+
+        [TestMethod]
+        public void DisorderingLeavesValidState()
+        {
+            game.DisorderBoard();
+            Assert.IsTrue(EmptyCellIsInLowerRightCorner());
+
+        }
+
+            private bool EmptyCellIsInLowerRightCorner()
+            {
+                return board.GetEmptyCellPos() == new CellIndices(board.SizeInCells() - 1, board.SizeInCells() - 1);
+
+            }
         
 
     }
