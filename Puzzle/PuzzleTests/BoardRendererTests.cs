@@ -9,7 +9,7 @@ namespace PuzzleTests
     [TestClass]
     public class BoardRendererTests
     {
-        private Board board;
+        private SquareBoard board;
         private Window window;
         private BoardRenderer boardRenderer;
 
@@ -32,9 +32,9 @@ namespace PuzzleTests
 
         private void CreateWindowAndRenderNewBoard()
         {
-            board = new Board(TestValueProvider.BoardSize);
+            board = new SquareBoard(TestValueProvider.BoardSize);
             window = new Window(new DummyGameView());
-            var boardCellFactory = new BoardCellFactory(new DummyGameController());
+            var boardCellFactory = new BoardCellFactory(new DummyGameController(), TestValueProvider.defaultImage);
             
             boardRenderer = new BoardRenderer(window, board, boardCellFactory);
             boardRenderer.Render();

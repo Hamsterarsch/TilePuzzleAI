@@ -53,7 +53,7 @@
     </Compile>
     <Compile Include="CellIndices.cs" />
     <Compile Include="DefaultApp.cs" />
-    <Compile Include="Board.cs" />
+    <Compile Include="SquareBoard.cs" />
     <Compile Include="BoardCellFactory.cs" />
     <Compile Include="BoardRenderer.cs" />
     <Compile Include="BoardSizeControl.cs">

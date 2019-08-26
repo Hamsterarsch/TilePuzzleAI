@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace PuzzleApp
 {
-    class Board
+    class SquareBoard
     {
         private int size;
         private Cell[,] cells;
         private CellIndices emptyCellPos;
 
-        public Board(int size)
+        public SquareBoard(int size)
         {
             this.size = size;
             this.cells = new Cell[size, size];
@@ -69,7 +69,7 @@ namespace PuzzleApp
 
 
 
-        public int Size()
+        public int SizeInCells()
         {
             return size;
         }

@@ -21,9 +21,9 @@ namespace PuzzleApp
 
         }
 
-        public CellControl MakeBoardCell(CellIndices currentPos, CellIndices correctPos)
+        public CellControl MakeBoardCell(CellIndices currentPos, CellIndices correctPos, Rectangle cellRect)
         {
-            var cell = new CellControl(controller, currentPos, correctPos, cellImage)
+            var cell = new CellControl(controller, currentPos, correctPos, cellImage, cellRect)
             {
                 Anchor = ~AnchorStyles.None,
                 Margin = Padding.Empty,

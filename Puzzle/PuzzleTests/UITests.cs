@@ -11,7 +11,7 @@ namespace PuzzleTests
         [TestMethod]
         public void CanWindowBeCreated()
         {
-            var board = new Board(TestValueProvider.BoardSize);
+            var board = new SquareBoard(TestValueProvider.BoardSize);
             var window = new Window(new DummyGameView());
 
         }

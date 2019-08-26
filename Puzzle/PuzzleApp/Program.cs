@@ -15,7 +15,7 @@ namespace PuzzleApp
         static void Main()
         {
             var view = new NotifiableGameView();
-            var board = new Board(4);
+            var board = new SquareBoard(4);
             var game = new Game(view, board);
 
             var controller = new DefaultGameController(game);
@@ -30,7 +30,7 @@ namespace PuzzleApp
             view.SetEventOnCellMoved(boardRenderer.SwapCells);
 
             boardRenderer.Render();
-
+            
             app.Startup();
 
 

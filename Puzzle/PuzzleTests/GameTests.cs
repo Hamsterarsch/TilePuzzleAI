@@ -12,7 +12,7 @@ namespace PuzzleTests
         private const int boardSize = 4;
 
         private NotifiableGameView view;
-        private Board board;
+        private SquareBoard board;
         private Game game;
         private GameController controller;
 
@@ -21,7 +21,7 @@ namespace PuzzleTests
         public void Init()
         {
             this.view = new NotifiableGameView();
-            this.board = new Board(boardSize);
+            this.board = new SquareBoard(boardSize);
             this.game = new Game(view, board);
 
             this.controller = new DefaultGameController(game);

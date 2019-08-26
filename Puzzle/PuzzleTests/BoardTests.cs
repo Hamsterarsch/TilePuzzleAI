@@ -10,7 +10,7 @@ namespace PuzzleTests
         [TestMethod]
         public void AreCellsCorrectlySetUp()
         {
-            var board = new Board(4);
+            var board = new SquareBoard(4);
 
             Assert.IsTrue(board.IsCellCorrect(new CellIndices(0, 0)) );
             Assert.IsTrue(board.IsCellCorrect(new CellIndices(2, 3)) );
@@ -21,7 +21,7 @@ namespace PuzzleTests
         [TestMethod]
         public void CellsCanBeSwapped()
         {
-            var board = new Board(4);
+            var board = new SquareBoard(4);
             var CellIndices00 = new CellIndices(0, 0);
             var CellIndices22 = new CellIndices(2, 2);
 
@@ -39,7 +39,7 @@ namespace PuzzleTests
         [TestMethod]
         public void EmptyAdjacency()
         {
-            var board = new Board(4);
+            var board = new SquareBoard(4);
 
             var CellIndices32 = new CellIndices(3, 2);
             Assert.IsTrue(board.CellIsAdjacentToEmpty(CellIndices32));

@@ -11,9 +11,9 @@ namespace PuzzleApp
     class Game
     {
         private NotifiableGameView view;
-        private Board board;
+        private SquareBoard board;
 
-        public Game(NotifiableGameView view, Board board)
+        public Game(NotifiableGameView view, SquareBoard board)
         {
             this.view = view;
             this.board = board;

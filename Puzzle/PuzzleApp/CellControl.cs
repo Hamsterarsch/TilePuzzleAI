@@ -15,19 +15,19 @@ namespace PuzzleApp
         private CellIndices position;
         private CellIndices correctPos;
         private Image puzzleImage;
+        private Rectangle cellRect;
 
 
-        public CellControl(GameController controller, CellIndices position, CellIndices correctPos, Image backgroundImage)
+        public CellControl(GameController controller, CellIndices position, CellIndices correctPos, Image backgroundImage, Rectangle cellRect)
         {
             this.controller = controller;
             this.position = position;
             this.correctPos = correctPos;
             this.puzzleImage = backgroundImage;
+            this.cellRect = cellRect;
 
             SetStyle(ControlStyles.Selectable, false);
-            //FlatStyle = FlatStyle.Flat;
-            //FlatAppearance.BorderSize = 1;
-            //FlatAppearance.MouseOverBackColor =
+
 
 
         }
@@ -45,16 +45,10 @@ namespace PuzzleApp
             get { return false; }
         }
 
-        protected override void OnPaintBackground(PaintEventArgs e)
+        protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaintBackground(e);
-
-            var rect = ClientRectangle;
-            rect.Width = rect.Width - puzzleImage.Width;
-            rect.Height = rect.Height - puzzleImage.Height;
-
-            e.Graphics.DrawImage(puzzleImage, rect);
-
+            e.Graphics.DrawImage(puzzleImage, cellRect);
+         
         }
 
 
