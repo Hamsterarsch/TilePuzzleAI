@@ -42,14 +42,14 @@
             // 
             // ctrl_boardSize
             // 
-            this.ctrl_boardSize.Location = new System.Drawing.Point(628, 12);
+            this.ctrl_boardSize.Location = new System.Drawing.Point(678, 12);
             this.ctrl_boardSize.Name = "ctrl_boardSize";
-            this.ctrl_boardSize.Size = new System.Drawing.Size(188, 36);
+            this.ctrl_boardSize.Size = new System.Drawing.Size(75, 84);
             this.ctrl_boardSize.TabIndex = 1;
             // 
             // ctrl_ChangeImage
             // 
-            this.ctrl_ChangeImage.Location = new System.Drawing.Point(637, 54);
+            this.ctrl_ChangeImage.Location = new System.Drawing.Point(628, 102);
             this.ctrl_ChangeImage.Name = "ctrl_ChangeImage";
             this.ctrl_ChangeImage.Size = new System.Drawing.Size(170, 59);
             this.ctrl_ChangeImage.TabIndex = 2;

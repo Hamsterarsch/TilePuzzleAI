@@ -16,12 +16,14 @@ namespace PuzzleApp
         private ObservableGameView view;
 
 
-        public Window(ObservableGameView view)
+        public Window(ObservableGameView view, GameController controller)
         {
             InitializeComponent();
 
             this.view = view;
-            
+
+            this.ctrl_boardSize.OnNewSizeSelected += controller.ChangeBoardSize;
+
 
         }
 

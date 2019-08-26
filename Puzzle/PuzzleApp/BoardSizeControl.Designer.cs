@@ -28,48 +28,56 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.btn_Decrease = new System.Windows.Forms.Button();
-            this.btn_Increase = new System.Windows.Forms.Button();
-            this.txtb_Current = new System.Windows.Forms.TextBox();
+            this.rad_3x3 = new System.Windows.Forms.RadioButton();
+            this.rad_4x4 = new System.Windows.Forms.RadioButton();
+            this.rad_5x5 = new System.Windows.Forms.RadioButton();
             this.SuspendLayout();
             // 
-            // btn_Decrease
+            // rad_3x3
             // 
-            this.btn_Decrease.Dock = System.Windows.Forms.DockStyle.Left;
-            this.btn_Decrease.Location = new System.Drawing.Point(0, 0);
-            this.btn_Decrease.Name = "btn_Decrease";
-            this.btn_Decrease.Size = new System.Drawing.Size(40, 36);
-            this.btn_Decrease.TabIndex = 0;
-            this.btn_Decrease.Text = "<";
-            this.btn_Decrease.UseVisualStyleBackColor = true;
+            this.rad_3x3.AutoSize = true;
+            this.rad_3x3.Location = new System.Drawing.Point(20, 12);
+            this.rad_3x3.Name = "rad_3x3";
+            this.rad_3x3.Size = new System.Drawing.Size(42, 17);
+            this.rad_3x3.TabIndex = 0;
+            this.rad_3x3.TabStop = true;
+            this.rad_3x3.Text = "3x3";
+            this.rad_3x3.UseVisualStyleBackColor = true;
+            this.rad_3x3.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
-            // btn_Increase
+            // rad_4x4
             // 
-            this.btn_Increase.Dock = System.Windows.Forms.DockStyle.Right;
-            this.btn_Increase.Location = new System.Drawing.Point(144, 0);
-            this.btn_Increase.Name = "btn_Increase";
-            this.btn_Increase.Size = new System.Drawing.Size(44, 36);
-            this.btn_Increase.TabIndex = 1;
-            this.btn_Increase.Text = ">";
-            this.btn_Increase.UseVisualStyleBackColor = true;
+            this.rad_4x4.AutoSize = true;
+            this.rad_4x4.Location = new System.Drawing.Point(20, 35);
+            this.rad_4x4.Name = "rad_4x4";
+            this.rad_4x4.Size = new System.Drawing.Size(42, 17);
+            this.rad_4x4.TabIndex = 1;
+            this.rad_4x4.TabStop = true;
+            this.rad_4x4.Text = "4x4";
+            this.rad_4x4.UseVisualStyleBackColor = true;
+            this.rad_4x4.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
-            // txtb_Current
+            // rad_5x5
             // 
-            this.txtb_Current.Location = new System.Drawing.Point(46, 9);
-            this.txtb_Current.Name = "txtb_Current";
-            this.txtb_Current.ReadOnly = true;
-            this.txtb_Current.Size = new System.Drawing.Size(92, 20);
-            this.txtb_Current.TabIndex = 2;
+            this.rad_5x5.AutoSize = true;
+            this.rad_5x5.Location = new System.Drawing.Point(20, 58);
+            this.rad_5x5.Name = "rad_5x5";
+            this.rad_5x5.Size = new System.Drawing.Size(42, 17);
+            this.rad_5x5.TabIndex = 2;
+            this.rad_5x5.TabStop = true;
+            this.rad_5x5.Text = "5x5";
+            this.rad_5x5.UseVisualStyleBackColor = true;
+            this.rad_5x5.CheckedChanged += new System.EventHandler(this.CheckedChanged);
             // 
             // BoardSizeControl
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.txtb_Current);
-            this.Controls.Add(this.btn_Increase);
-            this.Controls.Add(this.btn_Decrease);
+            this.Controls.Add(this.rad_5x5);
+            this.Controls.Add(this.rad_4x4);
+            this.Controls.Add(this.rad_3x3);
             this.Name = "BoardSizeControl";
-            this.Size = new System.Drawing.Size(188, 36);
+            this.Size = new System.Drawing.Size(80, 83);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -77,8 +85,8 @@
 
         #endregion
 
-        private System.Windows.Forms.Button btn_Decrease;
-        private System.Windows.Forms.Button btn_Increase;
-        private System.Windows.Forms.TextBox txtb_Current;
+        private System.Windows.Forms.RadioButton rad_3x3;
+        private System.Windows.Forms.RadioButton rad_4x4;
+        private System.Windows.Forms.RadioButton rad_5x5;
     }
 }

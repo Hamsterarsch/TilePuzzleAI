@@ -33,7 +33,7 @@ namespace PuzzleTests
         private void CreateWindowAndRenderNewBoard()
         {
             board = new SquareBoard(TestValueProvider.BoardSize);
-            window = new Window(new DummyGameView());
+            window = new Window(new DummyGameView(), new DummyGameController());
             var boardCellFactory = new BoardCellFactory(new DummyGameController(), TestValueProvider.defaultImage);
             
             boardRenderer = new BoardRenderer(window, board, boardCellFactory);

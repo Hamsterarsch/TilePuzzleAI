@@ -33,6 +33,13 @@ namespace PuzzleApp
             
         }
 
+        public void ChangeBoardSize(int size)
+        {
+            this.board = new SquareBoard(size);
+            view.NotifyOnBoardChanged(board);
+
+        }
+
 
     }
 

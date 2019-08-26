@@ -12,12 +12,14 @@ namespace PuzzleTests
     {
         public void SetEventOnCellMoved(Action<CellIndices, CellIndices> Event)
         {
-            
         }
 
         public void SetEventOnGameWon(Action Event)
         {
-            
+        }
+
+        public void SetEventOnBoardChanged(Action<SquareBoard> Event)
+        {
         }
 
 

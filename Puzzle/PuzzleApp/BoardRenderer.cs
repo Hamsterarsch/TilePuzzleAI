@@ -42,19 +42,32 @@ namespace PuzzleApp
 
         }
 
-        
+        public void SetCellFactory(BoardCellFactory cellFactory)
+        {
+            this.cellFactory = cellFactory;
+
+        }
+
 
         public void Render()
         {
+            boardLayoutPanel?.Dispose();
             boardLayoutPanel = CreateBoardLayoutPanel();
 
             AddCellsToBoardLayout(boardLayoutPanel);
 
             outputControl.Controls.Add(boardLayoutPanel);
             outputControl.Invalidate();
-            
+
         }
 
+        public void Render(SquareBoard board)
+        {
+            this.board = board;
+            Render();
+
+        }
+        
         private TableLayoutPanel CreateBoardLayoutPanel()
         {
             var layout = new TableLayoutPanel

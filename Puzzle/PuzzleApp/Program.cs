@@ -14,22 +14,9 @@ namespace PuzzleApp
         [STAThread]
         static void Main()
         {
-            var view = new NotifiableGameView();
-            var board = new SquareBoard(4);
-            var game = new Game(view, board);
-
-            var controller = new DefaultGameController(game);
-            var app = new DefaultApp(view);
+            var app = new DefaultApp();
             
-            var outputControl = app.FindControl("BoardOutputTarget");
-
-            var defaultImage = Image.FromFile("C:\\Users\\Hamsterarsch\\Desktop\\LnkdinPB.png");
-            var cellFactory = new BoardCellFactory(controller, defaultImage);
-
-            var boardRenderer = new BoardRenderer(outputControl, board, cellFactory);
-            view.SetEventOnCellMoved(boardRenderer.SwapCells);
-
-            boardRenderer.Render();
+            
             
             app.Startup();
 

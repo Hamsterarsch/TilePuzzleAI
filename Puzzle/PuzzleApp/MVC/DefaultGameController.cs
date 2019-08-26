@@ -9,6 +9,7 @@ namespace PuzzleApp.MVC
     interface GameController
     {
         void OnCellClicked(CellIndices indices);
+        void ChangeBoardSize(int size);
 
 
     }
@@ -28,8 +29,12 @@ namespace PuzzleApp.MVC
            targetGame.OnCellClicked(indices);
 
        }
-        
 
+       public void ChangeBoardSize(int size)
+       {
+           targetGame.ChangeBoardSize(size);
+
+       }
     }
 
 

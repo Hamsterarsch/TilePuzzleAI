@@ -11,6 +11,7 @@ namespace PuzzleApp.MVC
     {
         void SetEventOnCellMoved(Action<CellIndices, CellIndices> Event);
         void SetEventOnGameWon(Action Event);
+        void SetEventOnBoardChanged(Action<SquareBoard> Event);
 
     }
 
@@ -18,6 +19,7 @@ namespace PuzzleApp.MVC
     {
         private Action<CellIndices, CellIndices> OnCellMoved;
         private Action OnGameWon;
+        private Action<SquareBoard> OnBoardChanged;
 
 
         public void SetEventOnCellMoved(Action<CellIndices, CellIndices> Event)
@@ -28,10 +30,10 @@ namespace PuzzleApp.MVC
 
         public void NotifyOnCellMoved(CellIndices FromPos, CellIndices ToPos)
         {
-            
             OnCellMoved?.Invoke(FromPos, ToPos);
 
         }
+
 
 
         public void SetEventOnGameWon(Action Event)
@@ -46,7 +48,21 @@ namespace PuzzleApp.MVC
 
         }
         
+
+
+        public void SetEventOnBoardChanged(Action<SquareBoard> Event)
+        {
+            OnBoardChanged = Event;
+
+        }
         
+        public void NotifyOnBoardChanged(SquareBoard Board)
+        {
+            OnBoardChanged?.Invoke(Board);
+
+        }
+
+
     }
 
 
