@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 using PuzzleApp.MVC;
 
@@ -12,12 +13,18 @@ namespace PuzzleApp
     {
         private NotifiableGameView view;
         private SquareBoard board;
+        private bool bIsGameBeingSolved;
 
+        private List<CellIndices> currentSolution;
+        private int nextSolutionStepIndex;
+        private System.Windows.Forms.Timer solveTimer;
 
         public Game(NotifiableGameView view, SquareBoard board)
         {
             this.view = view;
             this.board = board;
+            this.bIsGameBeingSolved = false;
+            
 
             DisorderBoard();
 
@@ -25,25 +32,75 @@ namespace PuzzleApp
 
         public void OnCellClicked(CellIndices indices)
         {
-            if (board.CellIsAdjacentToEmpty(indices))
+            if (bIsGameBeingSolved)
             {
-                var moveToPos = board.GetEmptyCellPos();
-
-                board.SwapCells(indices, moveToPos);
-                
-                view.NotifyOnCellMoved(indices, moveToPos);
+                return;
             }
-            
+
+            MoveCellAccordingToRules(indices);
+
         }
+
+            private void MoveCellAccordingToRules(CellIndices indices)
+            {
+                if (board.CellIsAdjacentToEmpty(indices))
+                {
+                    var moveToPos = board.GetEmptyCellPos();
+
+                    board.SwapCells(indices, moveToPos);
+                    
+                    view.NotifyOnCellMoved(indices, moveToPos);
+                }
+
+            }
         
         public void ChangeBoardSize(int size)
         {
+            if (bIsGameBeingSolved)
+            {
+                return;
+            }
+
             this.board = new SquareBoard(size);
             DisorderBoard();
 
             view.NotifyOnBoardChanged(board);
 
         }
+
+        public void SolvePuzzle()
+        {
+            if (bIsGameBeingSolved)
+            {
+                return;
+
+            }
+
+            bIsGameBeingSolved = true;
+
+            var solver = new PuzzleSolver(board);
+            currentSolution = solver.GetMovesToSolution();
+            nextSolutionStepIndex = 0;
+            
+            solveTimer = new System.Windows.Forms.Timer();
+            solveTimer.Interval = 350;
+            solveTimer.Tick += ExecuteSolutionStep;
+            solveTimer.Start();
+
+        }
+
+            private void ExecuteSolutionStep(object o, EventArgs e)
+            {
+                MoveCellAccordingToRules(currentSolution[nextSolutionStepIndex]);
+                ++nextSolutionStepIndex;
+
+                if (IsCompleted())
+                {
+                    solveTimer.Stop();
+                    bIsGameBeingSolved = false;
+                }
+
+            }
 
         public bool IsCompleted()
         {

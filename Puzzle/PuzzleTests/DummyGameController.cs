@@ -16,8 +16,12 @@ namespace PuzzleTests
 
         public void ChangeBoardSize(int size)
         {
-            
         }
+
+        public void SolvePuzzle()
+        {
+        }
+
     }
 
 

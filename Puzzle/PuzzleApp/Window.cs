@@ -14,16 +14,17 @@ namespace PuzzleApp
     partial class Window : Form
     {
         private ObservableGameView view;
+        private GameController controller;
 
         public Window(ObservableGameView view, GameController controller)
         {
             InitializeComponent();
 
             this.view = view;
+            this.controller = controller;
 
             this.ctrl_boardSize.OnNewSizeSelected += controller.ChangeBoardSize;
             
-
         }
 
         public void SetEventOnNewImageSelected(Action<string> Event)
@@ -36,6 +37,14 @@ namespace PuzzleApp
         {
 
         }
+
+        private void btn_Solve_Click(object sender, EventArgs e)
+        {
+            controller.SolvePuzzle();
+
+        }
+
+
     }
 
 

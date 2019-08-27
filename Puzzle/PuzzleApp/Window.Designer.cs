@@ -31,6 +31,7 @@
             this.BoardOutputTarget = new System.Windows.Forms.Panel();
             this.ctrl_boardSize = new PuzzleApp.BoardSizeControl();
             this.ctrl_ChangeImage = new PuzzleApp.ChangeImageControl();
+            this.btn_Solve = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // BoardOutputTarget
@@ -54,11 +55,22 @@
             this.ctrl_ChangeImage.Size = new System.Drawing.Size(170, 59);
             this.ctrl_ChangeImage.TabIndex = 2;
             // 
+            // btn_Solve
+            // 
+            this.btn_Solve.Location = new System.Drawing.Point(632, 167);
+            this.btn_Solve.Name = "btn_Solve";
+            this.btn_Solve.Size = new System.Drawing.Size(162, 46);
+            this.btn_Solve.TabIndex = 3;
+            this.btn_Solve.Text = "Solve Puzzle";
+            this.btn_Solve.UseVisualStyleBackColor = true;
+            this.btn_Solve.Click += new System.EventHandler(this.btn_Solve_Click);
+            // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(828, 623);
+            this.Controls.Add(this.btn_Solve);
             this.Controls.Add(this.ctrl_ChangeImage);
             this.Controls.Add(this.ctrl_boardSize);
             this.Controls.Add(this.BoardOutputTarget);
@@ -76,6 +88,7 @@
         private System.Windows.Forms.Panel BoardOutputTarget;
         private BoardSizeControl ctrl_boardSize;
         private ChangeImageControl ctrl_ChangeImage;
+        private System.Windows.Forms.Button btn_Solve;
     }
 }
 

@@ -10,7 +10,7 @@ namespace PuzzleApp.MVC
     {
         void OnCellClicked(CellIndices indices);
         void ChangeBoardSize(int size);
-
+        void SolvePuzzle();
 
     }
 
@@ -35,6 +35,13 @@ namespace PuzzleApp.MVC
            targetGame.ChangeBoardSize(size);
 
        }
+
+       public void SolvePuzzle()
+       {
+           this.targetGame.SolvePuzzle();
+
+       }
+
     }
 
 
