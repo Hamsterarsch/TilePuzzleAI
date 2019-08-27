@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows.Forms;
 using PuzzleApp.MVC;
 
 
@@ -111,7 +112,10 @@ namespace PuzzleApp
             {
                 nextSolutionStepIndex = 0;
                 view.NotifyOnSoltutionFound(currentSolution.Count);
-            
+
+                
+                solveTimer = new Timer();//timers seem to be stateful, so create a new one to work with the newest game state
+                solveTimer.Interval = replayStepTimeInMs;
                 solveTimer.Tick += ExecuteSolutionStep;
                 solveTimer.Start();
 
