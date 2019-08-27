@@ -29,7 +29,7 @@ namespace PuzzleApp
             else
             {
                 bucket = new List<t_Item> { item };
-                list.Add(item.Priority(), bucket);
+                list.Add(Math.Abs(item.Priority()), bucket);
 
             }
 
@@ -73,6 +73,21 @@ namespace PuzzleApp
             return count == 0;
 
         }
+
+        public bool Contains(t_Item item)
+        {
+            List<t_Item> bucket = null;
+            list.TryGetValue(item.Priority(), out bucket);
+
+            if (bucket == null)
+            {
+                return false;
+            }
+
+            return bucket.Contains(item);
+
+        }
+
 
     }
 

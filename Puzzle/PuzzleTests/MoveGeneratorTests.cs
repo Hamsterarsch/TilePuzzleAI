@@ -22,6 +22,21 @@ namespace PuzzleTests
 
         }
 
+        [TestMethod]
+        public void GetMovesCornerCase()
+        {
+            var board = new SquareBoard(4);
+            var generator = new MoveGenerator(board);
+
+            const int repeat = 1000;
+            for (int i = 0; i < repeat; ++i)
+            {
+                var moves = generator.GetMoves();
+                Assert.IsTrue(moves.Length == 2);
+            }
+
+        }
+
 
     }
 

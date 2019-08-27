@@ -92,6 +92,23 @@ namespace PuzzleTests
 
         }
 
+        [TestMethod]
+        public void CanCheckForContainStatus()
+        {
+            var queue = new PriorityQueue<DummyNode>();
+
+            var Node1 = new DummyNode(1);
+            var Node2 = new DummyNode(2);
+
+            queue.Enqueue(Node1);
+            queue.Enqueue(Node2);
+
+            Assert.IsTrue(queue.Contains(Node1));
+            Assert.IsTrue(queue.Contains(Node2));
+            Assert.IsFalse(queue.Contains(new DummyNode(4)));
+
+        }
+
 
 
     }

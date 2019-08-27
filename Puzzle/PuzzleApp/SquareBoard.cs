@@ -28,9 +28,9 @@ namespace PuzzleApp
             {
                 bool bCellsAreEqual = true;
 
-                for (int columnIndex = 0; columnIndex < cells1.GetUpperBound(0); ++columnIndex)
+                for (int columnIndex = 0; columnIndex <= cells1.GetUpperBound(0); ++columnIndex)
                 {
-                    for (int rowIndex = 0; rowIndex < cells1.GetUpperBound(1); ++rowIndex)
+                    for (int rowIndex = 0; rowIndex <= cells1.GetUpperBound(1); ++rowIndex)
                     {
                         bCellsAreEqual &= cells1[columnIndex, rowIndex] == cells2[columnIndex, rowIndex];
                         if (!bCellsAreEqual)
@@ -50,34 +50,6 @@ namespace PuzzleApp
 
         }
 
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                var hashCode = size;
-                hashCode = (hashCode * 397) ^ GetCellHash();
-                hashCode = (hashCode * 397) ^ emptyCellPos.GetHashCode();
-                hashCode = (hashCode * 397) ^ correctlyOrderedCells;
-                return hashCode;
-            }
-
-        }
-
-            private int GetCellHash()
-            {
-                var hashCode = cells.Length;
-                foreach (Cell cell in cells)
-                {
-                    unchecked
-                    {
-                        hashCode = hashCode * cell.GetHashCode();
-                    }
-                }
-
-                return hashCode;
-
-            }
-
         public SquareBoard(int size)
         {
             this.size = size;
@@ -86,6 +58,28 @@ namespace PuzzleApp
             
             InitCells(cells);
 
+        }
+
+        public SquareBoard(SquareBoard other)
+        {
+            this.size = other.size;
+            this.correctlyOrderedCells = other.correctlyOrderedCells;
+            this.emptyCellPos = other.emptyCellPos;
+
+            this.cells = new Cell[size, size];
+            for (int columnIndex = 0; columnIndex <= other.cells.GetUpperBound(0); ++columnIndex)
+            {
+                for (int rowIndex = 0; rowIndex <= other.cells.GetUpperBound(1); ++rowIndex)
+                {
+                    if (other.cells[columnIndex, rowIndex] == null)
+                    {
+                        continue;
+                    }
+
+                    this.cells[columnIndex, rowIndex] = new Cell(other.cells[columnIndex, rowIndex]);
+                }
+            }
+            
         }
 
             private void InitCells(Cell[,] cells)
@@ -132,6 +126,34 @@ namespace PuzzleApp
                         get { return ref cells[indices.column, indices.row]; }
 
                     }
+
+        public override int GetHashCode()
+        {
+            unchecked
+            {
+                var hashCode = size;
+                hashCode = (hashCode * 397) ^ GetCellHash();
+                hashCode = (hashCode * 397) ^ emptyCellPos.GetHashCode();
+                hashCode = (hashCode * 397) ^ correctlyOrderedCells;
+                return hashCode;
+            }
+
+        }
+
+        private int GetCellHash()
+        {
+            var hashCode = cells.Length;
+            foreach (Cell cell in cells)
+            {
+                unchecked
+                {
+                    hashCode = hashCode * (cell == null ? 0 : cell.GetHashCode());
+                }
+            }
+
+            return hashCode;
+
+        }
 
         public int SizeInCells()
         {

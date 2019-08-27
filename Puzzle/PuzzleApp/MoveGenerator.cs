@@ -28,7 +28,7 @@ namespace PuzzleApp
             adjacentCell.column += displacement.column;
             adjacentCell.row += displacement.row;
 
-            return EnforceBoardBoundaries(adjacentCell);
+            return EnforceBoardBoundariesByMirroringMove(adjacentCell);
             
         }
 
@@ -66,7 +66,7 @@ namespace PuzzleApp
 
                 }
 
-            private CellIndices EnforceBoardBoundaries(CellIndices indices)
+            private CellIndices EnforceBoardBoundariesByMirroringMove(CellIndices indices)
             {
                 if (indices.column >= board.SizeInCells())
                 {
@@ -91,6 +91,109 @@ namespace PuzzleApp
                 return indices;
 
             }
+
+        public CellIndices[] GetMoves()
+        {
+            var emptyPos = board.GetEmptyCellPos();
+
+            var moves = GetAllNonDiagonalMoves();
+            TruncateMovesToBoard(ref moves);
+
+            return MakeValidMovesFromUnsafeMoves(moves);
+            
+        }
+
+            private CellIndices[] GetAllNonDiagonalMoves()
+            {
+                var moves = new CellIndices[4];
+                var emptyPos = board.GetEmptyCellPos();
+
+                moves[0] = new CellIndices(emptyPos.column + 1, emptyPos.row);
+                moves[1] = new CellIndices(emptyPos.column - 1, emptyPos.row);
+                moves[2] = new CellIndices(emptyPos.column, emptyPos.row + 1);
+                moves[3] = new CellIndices(emptyPos.column, emptyPos.row - 1);
+
+                return moves;
+
+            }
+
+            private void TruncateMovesToBoard(ref CellIndices[] moves)
+            {
+                for (int i = 0; i < moves.Length; ++i)
+                {
+                    moves[i] = TruncateMoveToBoardBoundaries(moves[i]);
+                }
+
+            }
+
+                private CellIndices TruncateMoveToBoardBoundaries(CellIndices move)
+                {
+                    if (move.column >= board.SizeInCells())
+                    {
+                        move.column -= 1;
+                    }
+
+                    if (move.row >= board.SizeInCells())
+                    {
+                        move.row -= 1;
+                    }
+
+                    if (move.column < 0)
+                    {
+                        move.column += 1;
+                    }
+
+                    if (move.row < 0)
+                    {
+                        move.row += 1;
+                    }
+
+                    return move;
+
+                }
+
+            private CellIndices[] MakeValidMovesFromUnsafeMoves(CellIndices[] moves)
+            {
+                CellIndices[] validMoves = null;
+
+
+                var validMoveCount = GetValidMoveAmount(ref moves);
+                validMoves = new CellIndices[validMoveCount];
+
+                foreach (CellIndices move in moves)
+                {
+                    if (IsMoveInsideBoundariesValid(move))
+                    {
+                        validMoves[validMoveCount - 1] = move;
+                        --validMoveCount;
+                    }
+
+                }
+
+                return validMoves;
+            
+            }
+
+                private int GetValidMoveAmount(ref CellIndices[] moves)
+                {
+                    int validMoveCount = 0;
+                    foreach (CellIndices move in moves)
+                    {
+                        if (IsMoveInsideBoundariesValid(move))
+                        {
+                            ++validMoveCount;
+                        }
+                    }
+
+                    return validMoveCount;
+
+                }
+
+                private bool IsMoveInsideBoundariesValid(CellIndices move)
+                {
+                    return move != board.GetEmptyCellPos();
+
+                }
         
 
     }
