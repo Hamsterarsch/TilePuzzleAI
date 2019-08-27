@@ -29,8 +29,8 @@ namespace PuzzleApp
         {
             this.parent = parent;
             this.board = board;
-            this.estimation =  board.GetCellAmount() - board.GetCorrectCellAmount();//todo: add heuristc
             this.cost = cost;
+            this.estimation = board.GetManhattenDistFromSolution() + cost;
             this.moveToThis = moveToThis;
         }
 

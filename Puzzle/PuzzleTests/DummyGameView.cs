@@ -22,6 +22,14 @@ namespace PuzzleTests
         {
         }
 
+        public void SetEventOnSolutionFound(Action<int> Event)
+        {
+        }
+
+        public void SetEventOnSolutionStepUpdated(Action<int> Event)
+        {
+        }
+
 
     }
 

@@ -109,6 +109,39 @@ namespace PuzzleTests
 
         }
 
+        [TestMethod]
+        public void OrderPreservingWithSamePriority()
+        {
+            var queue = new PriorityQueue<DummyNode>();
+
+            var Node1 = new DummyNode(1);
+            queue.Enqueue(Node1);
+
+            var Node2 = new DummyNode(1);
+            queue.Enqueue(Node2);
+
+            var Node3 = new DummyNode(1);
+            queue.Enqueue(Node3);
+
+            var Node4 = new DummyNode(1);
+            queue.Enqueue(Node4);
+
+            var Node5 = new DummyNode(1);
+            queue.Enqueue(Node5);
+
+            var Node6 = new DummyNode(1);
+            queue.Enqueue(Node6);
+            
+            Assert.IsTrue(queue.Dequeue() == Node1);
+            Assert.IsTrue(queue.Dequeue() == Node2);
+            Assert.IsTrue(queue.Dequeue() == Node3);
+            Assert.IsTrue(queue.Dequeue() == Node4);
+            Assert.IsTrue(queue.Dequeue() == Node5);
+            Assert.IsTrue(queue.Dequeue() == Node6);
+
+
+        }
+
 
 
     }

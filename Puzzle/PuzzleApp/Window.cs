@@ -24,7 +24,9 @@ namespace PuzzleApp
             this.controller = controller;
 
             this.ctrl_boardSize.OnNewSizeSelected += controller.ChangeBoardSize;
-            
+            view.SetEventOnSolutionFound(OnSolutionFound);
+            view.SetEventOnSolutionStepUpdated(OnSolutionStepChanged);
+
         }
 
         public void SetEventOnNewImageSelected(Action<string> Event)
@@ -41,6 +43,21 @@ namespace PuzzleApp
         private void btn_Solve_Click(object sender, EventArgs e)
         {
             controller.SolvePuzzle();
+
+        }
+
+        private void OnSolutionFound(int SolutionSteps)
+        {
+            txt_SolutionSteps.Text = SolutionSteps.ToString();
+            txt_SoltionStepsRemaining.Text = SolutionSteps.ToString();
+
+            pnl_SolutionInfo.Visible = true;
+            
+        }
+
+        private void OnSolutionStepChanged(int StepsRemaining)
+        {
+            txt_SoltionStepsRemaining.Text = StepsRemaining.ToString();
 
         }
 

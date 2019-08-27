@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,28 +10,34 @@ namespace PuzzleApp
 
     class PriorityQueue<t_Item> where t_Item : Priority
     {
-        private SortedList<float, List<t_Item>> list;
+        private SortedList<float, HashSet<t_Item>> list;
         private int count;
+        private IEqualityComparer<t_Item> comparer;
 
         public PriorityQueue()
         {
-            list = new SortedList<float, List<t_Item>>();
+            list = new SortedList<float, HashSet<t_Item>>();
             count = 0;
+            
+        }
+
+        public PriorityQueue(IEqualityComparer<t_Item> equalityComparer)
+        {
+            comparer = equalityComparer;
 
         }
 
         public void Enqueue(t_Item item)
         {
-            List<t_Item> bucket = null;
+            HashSet<t_Item> bucket = null;
             if (list.TryGetValue(item.Priority(), out bucket))
             {
                 bucket.Add(item);
             }
             else
             {
-                bucket = new List<t_Item> { item };
+                bucket = new HashSet<t_Item>(comparer) { item };
                 list.Add(Math.Abs(item.Priority()), bucket);
-
             }
 
             ++count;
@@ -41,7 +48,7 @@ namespace PuzzleApp
         {
             var bucket = list.First();
             var item = bucket.Value.First();
-            bucket.Value.RemoveAt(0);
+            bucket.Value.Remove(item);
 
             if (bucket.Value.Count == 0)
             {
@@ -76,7 +83,7 @@ namespace PuzzleApp
 
         public bool Contains(t_Item item)
         {
-            List<t_Item> bucket = null;
+            HashSet<t_Item> bucket = null;
             list.TryGetValue(item.Priority(), out bucket);
 
             if (bucket == null)

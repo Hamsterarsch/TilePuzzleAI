@@ -79,9 +79,16 @@ namespace PuzzleApp
             bIsGameBeingSolved = true;
 
             var solver = new PuzzleSolver(board);
+
             currentSolution = solver.GetMovesToSolution();
             nextSolutionStepIndex = 0;
-            
+            if (currentSolution.Count == 0)
+            {
+                return;
+            }
+
+            view.NotifyOnSoltutionFound(currentSolution.Count);
+
             solveTimer = new System.Windows.Forms.Timer();
             solveTimer.Interval = 350;
             solveTimer.Tick += ExecuteSolutionStep;
@@ -93,6 +100,8 @@ namespace PuzzleApp
             {
                 MoveCellAccordingToRules(currentSolution[nextSolutionStepIndex]);
                 ++nextSolutionStepIndex;
+
+                view.NotifyOnSolutionStepUpdated(currentSolution.Count - nextSolutionStepIndex);
 
                 if (IsCompleted())
                 {
@@ -113,7 +122,7 @@ namespace PuzzleApp
             //todo: fix magic tokens and abstraction levels
             var moveGenerator = new MoveGenerator(board);
 
-            const int disorderSteps = 80;
+            const int disorderSteps = 100;
             for (int i = 0; i < disorderSteps; ++i)
             {
                 var move = moveGenerator.GetMove();
@@ -122,7 +131,8 @@ namespace PuzzleApp
 
             //this may be too predictable
             //align column
-            while (board.GetEmptyCellPos().column != board.SizeInCells() - 1)
+            var boundary = board.SizeInCells() - 1;
+            while (board.GetEmptyCellPos().column < boundary)
             {
                 var emptyPos = board.GetEmptyCellPos();
                 emptyPos.column += 1;
@@ -132,7 +142,7 @@ namespace PuzzleApp
             }
 
             //align row
-            while (board.GetEmptyCellPos().row != board.SizeInCells() - 1)
+            while (board.GetEmptyCellPos().row < boundary)
             {
                 var emptyPos = board.GetEmptyCellPos();
                 emptyPos.row += 1;

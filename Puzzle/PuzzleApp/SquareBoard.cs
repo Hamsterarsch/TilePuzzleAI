@@ -155,6 +155,28 @@ namespace PuzzleApp
 
         }
 
+        public int GetManhattenDistFromSolution()
+        {
+            int summedDistance = 0;
+            for (int columnIndex = 0; columnIndex < SizeInCells(); ++columnIndex)
+            {
+                for (int rowIndex = 0; rowIndex < SizeInCells(); ++rowIndex)
+                {
+                    var indices = new CellIndices(columnIndex, rowIndex);
+                    if (CellIsEmpty(indices))
+                    {
+                        continue;
+                    }
+
+                    var cell = this[indices];
+                    summedDistance += Math.Abs(cell.correctPosition.row - indices.row) + Math.Abs(cell.correctPosition.column - indices.column);
+                }
+            }
+
+            return summedDistance;
+
+        }
+
         public int SizeInCells()
         {
             return size;
