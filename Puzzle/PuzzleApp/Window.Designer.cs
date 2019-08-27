@@ -37,6 +37,8 @@
             this.txt_SolutionSteps = new System.Windows.Forms.Label();
             this.txt_SoltionStepsRemaining = new System.Windows.Forms.Label();
             this.pnl_SolutionInfo = new System.Windows.Forms.Panel();
+            this.label3 = new System.Windows.Forms.Label();
+            this.txt_DrawAmount = new System.Windows.Forms.Label();
             this.pnl_SolutionInfo.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -74,7 +76,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(3, 11);
+            this.label1.Location = new System.Drawing.Point(2, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 13);
             this.label1.TabIndex = 4;
@@ -113,17 +115,37 @@
             this.pnl_SolutionInfo.Controls.Add(this.txt_SoltionStepsRemaining);
             this.pnl_SolutionInfo.Controls.Add(this.label2);
             this.pnl_SolutionInfo.Controls.Add(this.txt_SolutionSteps);
-            this.pnl_SolutionInfo.Location = new System.Drawing.Point(648, 219);
+            this.pnl_SolutionInfo.Location = new System.Drawing.Point(649, 254);
             this.pnl_SolutionInfo.Name = "pnl_SolutionInfo";
             this.pnl_SolutionInfo.Size = new System.Drawing.Size(132, 68);
             this.pnl_SolutionInfo.TabIndex = 8;
             this.pnl_SolutionInfo.Visible = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(651, 229);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(65, 13);
+            this.label3.TabIndex = 9;
+            this.label3.Text = "Your Draws:";
+            // 
+            // txt_DrawAmount
+            // 
+            this.txt_DrawAmount.AutoSize = true;
+            this.txt_DrawAmount.Location = new System.Drawing.Point(758, 229);
+            this.txt_DrawAmount.Name = "txt_DrawAmount";
+            this.txt_DrawAmount.Size = new System.Drawing.Size(13, 13);
+            this.txt_DrawAmount.TabIndex = 10;
+            this.txt_DrawAmount.Text = "0";
             // 
             // Window
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(828, 623);
+            this.Controls.Add(this.txt_DrawAmount);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.pnl_SolutionInfo);
             this.Controls.Add(this.btn_Solve);
             this.Controls.Add(this.ctrl_ChangeImage);
@@ -138,6 +160,7 @@
             this.pnl_SolutionInfo.ResumeLayout(false);
             this.pnl_SolutionInfo.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -151,6 +174,8 @@
         private System.Windows.Forms.Label txt_SolutionSteps;
         private System.Windows.Forms.Label txt_SoltionStepsRemaining;
         private System.Windows.Forms.Panel pnl_SolutionInfo;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label txt_DrawAmount;
     }
 }
 

@@ -14,7 +14,7 @@ namespace PuzzleTests
         {
         }
 
-        public void SetEventOnGameWon(Action Event)
+        public void SetEventOnGameWon(Action<int> Event)
         {
         }
 

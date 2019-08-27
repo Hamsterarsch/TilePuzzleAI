@@ -26,6 +26,7 @@ namespace PuzzleApp
             this.ctrl_boardSize.OnNewSizeSelected += controller.ChangeBoardSize;
             view.SetEventOnSolutionFound(OnSolutionFound);
             view.SetEventOnSolutionStepUpdated(OnSolutionStepChanged);
+            view.SetEventOnDrawCountChanged(OnDrawCountChanged);
 
         }
 
@@ -58,6 +59,19 @@ namespace PuzzleApp
         private void OnSolutionStepChanged(int StepsRemaining)
         {
             txt_SoltionStepsRemaining.Text = StepsRemaining.ToString();
+
+        }
+
+        private void OnDrawCountChanged(int newDrawCount)
+        {
+            txt_DrawAmount.Text = newDrawCount.ToString();
+
+        }
+
+        private void OnGameWon(int usedDraws)
+        {
+            txt_DrawAmount.Text = "0";
+
 
         }
 

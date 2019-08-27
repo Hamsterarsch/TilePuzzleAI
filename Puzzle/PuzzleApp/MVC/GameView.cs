@@ -10,20 +10,22 @@ namespace PuzzleApp.MVC
     interface ObservableGameView
     {
         void SetEventOnCellMoved(Action<CellIndices, CellIndices> Event);
-        void SetEventOnGameWon(Action Event);
+        void SetEventOnGameWon(Action<int> Event);
         void SetEventOnBoardChanged(Action<SquareBoard> Event);
         void SetEventOnSolutionFound(Action<int> Event);
         void SetEventOnSolutionStepUpdated(Action<int> Event);
+        void SetEventOnDrawCountChanged(Action<int> Event);
 
     }
 
     class NotifiableGameView : ObservableGameView
     {
         private Action<CellIndices, CellIndices> OnCellMoved;
-        private Action OnGameWon;
+        private Action<int> OnGameWon;
         private Action<SquareBoard> OnBoardChanged;
         private Action<int> OnSolutionFound;
         private Action<int> OnSolutionStepUpdated;
+        private Action<int> OnDrawCountChanged;
 
 
         public void SetEventOnCellMoved(Action<CellIndices, CellIndices> Event)
@@ -40,15 +42,15 @@ namespace PuzzleApp.MVC
 
 
 
-        public void SetEventOnGameWon(Action Event)
+        public void SetEventOnGameWon(Action<int> Event)
         {
             OnGameWon = Event;
 
         }
 
-        public void NotifyOnGameWon()
+        public void NotifyOnGameWon(int usedDraws)
         {
-            OnGameWon?.Invoke();
+            OnGameWon?.Invoke(usedDraws);
 
         }
         
@@ -89,10 +91,25 @@ namespace PuzzleApp.MVC
             OnSolutionStepUpdated = Event;
 
         }
-
+        
         public void NotifyOnSolutionStepUpdated(int StepsRemaining)
         {
             OnSolutionStepUpdated?.Invoke(StepsRemaining);
+
+        }
+
+
+
+
+        public void SetEventOnDrawCountChanged(Action<int> Event)
+        {
+            OnDrawCountChanged = Event;
+
+        }
+
+        public void NotifyOnDrawCountChanged(int newDrawCount)
+        {
+            OnDrawCountChanged?.Invoke(newDrawCount);
 
         }
 

@@ -18,13 +18,14 @@ namespace PuzzleApp
         private List<CellIndices> currentSolution;
         private int nextSolutionStepIndex;
         private System.Windows.Forms.Timer solveTimer;
+        private int drawCounter;
 
         public Game(NotifiableGameView view, SquareBoard board)
         {
             this.view = view;
             this.board = board;
             this.bIsGameBeingSolved = false;
-            
+            this.drawCounter = 0;
 
             DisorderBoard();
 
@@ -38,6 +39,15 @@ namespace PuzzleApp
             }
 
             MoveCellAccordingToRules(indices);
+            ++drawCounter;
+            view.NotifyOnDrawCountChanged(drawCounter);
+
+            if (IsCompleted())
+            {
+                view.NotifyOnGameWon(drawCounter);
+                drawCounter = 0;
+
+            }
 
         }
 
@@ -126,7 +136,7 @@ namespace PuzzleApp
             for (int i = 0; i < disorderSteps; ++i)
             {
                 var move = moveGenerator.GetMove();
-                OnCellClicked(move);
+                MoveCellAccordingToRules(move);
             }
 
             //this may be too predictable
@@ -137,7 +147,7 @@ namespace PuzzleApp
                 var emptyPos = board.GetEmptyCellPos();
                 emptyPos.column += 1;
 
-                OnCellClicked(emptyPos);
+                MoveCellAccordingToRules(emptyPos);
 
             }
 
@@ -147,7 +157,7 @@ namespace PuzzleApp
                 var emptyPos = board.GetEmptyCellPos();
                 emptyPos.row += 1;
 
-                OnCellClicked(emptyPos);
+                MoveCellAccordingToRules(emptyPos);
 
             }
 
