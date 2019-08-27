@@ -1,13 +1,10 @@
 ﻿using System.Drawing;
-using System.Security.Cryptography.X509Certificates;
 using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
 using PuzzleApp.MVC;
+
 
 namespace PuzzleApp
 {
-
-
     class BoardCellFactory
     {
         private GameController controller;
@@ -30,7 +27,6 @@ namespace PuzzleApp
                 Padding = Padding.Empty
             };
             
-
             return cell;
 
         }

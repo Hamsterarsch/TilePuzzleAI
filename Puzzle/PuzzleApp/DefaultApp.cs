@@ -1,11 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using PuzzleApp.MVC;
+
 
 namespace PuzzleApp
 {
@@ -17,27 +14,28 @@ namespace PuzzleApp
         private ObservableGameView view;
         private BoardRenderer boardRenderer;
 
+        private const string defaultImagePath = "defaultBg.jpg";
+        private const string boardOutputControlName = "BoardOutputTarget";
+
 
         public DefaultApp()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            var notifyableView = new NotifiableGameView();;
-            this.view = notifyableView;
+            var notifiableView = new NotifiableGameView();;
+            this.view = notifiableView;
             var board = new SquareBoard(4);
-            var game = new Game(notifyableView, board);
+            var game = new Game(notifiableView, board);
             this.controller = new DefaultGameController(game);
             mainWindow = new Window(view, controller);
-
             mainWindow.SetEventOnNewImageSelected(ChangePuzzleImage);
 
-            var outputControl = FindControl("BoardOutputTarget");
-            var defaultImage = Image.FromFile("C:\\Users\\Hamsterarsch\\Desktop\\LnkdinPB.png");
+            var outputControl = FindControl(boardOutputControlName);
+            var defaultImage = Image.FromFile(defaultImagePath);
             var cellFactory = new BoardCellFactory(controller, defaultImage);
             this.boardRenderer = new BoardRenderer(outputControl, board, cellFactory);
             view.SetEventOnCellMoved(boardRenderer.SwapCells);
-            
             view.SetEventOnBoardChanged(boardRenderer.Render);
 
             boardRenderer.Render(board);
@@ -88,34 +86,35 @@ namespace PuzzleApp
 
             var foundControls = mainWindow.Controls.Find(controlSearchName, true);
             return ValidateAndGetControl(foundControls);
+
         }
         
-        private Control ValidateAndGetControl(Control[] foundTargets)
-        {
-            if (SearchIsAmbiguous(foundTargets))
+            private Control ValidateAndGetControl(Control[] foundTargets)
             {
-                throw new AmbiguousSearchException("Found multiple controls named " + controlSearchName + " to render the board to.");
+                if (SearchIsAmbiguous(foundTargets))
+                {
+                    throw new AmbiguousSearchException("Found multiple controls named " + controlSearchName + " to render the board to.");
+                }
+
+                if (NoResultExistsIn(foundTargets))
+                {
+                    throw new ArgumentException("Could not find a control named " + controlSearchName + " to render the board to.");
+                }
+
+                return foundTargets[0];
+
             }
 
-            if (NoResultExistsIn(foundTargets))
-            {
-                throw new ArgumentException("Could not find a control named " + controlSearchName + " to render the board to.");
-            }
+                private bool SearchIsAmbiguous(Control[] foundTargets)
+                {
+                    return foundTargets.Length != 1;
 
-            return foundTargets[0];
+                }
 
-        }
-
-        private bool SearchIsAmbiguous(Control[] foundTargets)
-        {
-            return foundTargets.Length != 1;
-
-        }
-
-        private bool NoResultExistsIn(Control[] foundTargets)
-        {
-            return foundTargets.Length == 0;
-        }
+                private bool NoResultExistsIn(Control[] foundTargets)
+                {
+                    return foundTargets.Length == 0;
+                }
 
 
     }

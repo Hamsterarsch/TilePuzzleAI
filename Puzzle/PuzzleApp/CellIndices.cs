@@ -1,6 +1,4 @@
-﻿
-
-namespace PuzzleApp
+﻿namespace PuzzleApp
 {
     public struct CellIndices 
     {
@@ -20,11 +18,11 @@ namespace PuzzleApp
 
         }
 
-        private static bool EqualsImpl(ref CellIndices Lhs, ref CellIndices Rhs)
-        {
-            return Lhs.column == Rhs.column && Lhs.row == Rhs.row;
+            private static bool EqualsImpl(ref CellIndices Lhs, ref CellIndices Rhs)
+            {
+                return Lhs.column == Rhs.column && Lhs.row == Rhs.row;
 
-        }
+            }
 
 
 
@@ -34,12 +32,8 @@ namespace PuzzleApp
             this.row = row;
 
         }
+        
 
-        public bool Equals(CellIndices other)
-        {
-            return EqualsImpl(ref this, ref other);
-
-        }
 
         public override bool Equals(object obj)
         {
@@ -53,6 +47,12 @@ namespace PuzzleApp
             {
                 return (column * 397) ^ row;
             }
+
+        }
+
+        public bool Equals(CellIndices other)
+        {
+            return EqualsImpl(ref this, ref other);
 
         }
 

@@ -30,6 +30,10 @@ namespace PuzzleTests
         {
         }
 
+        public void SetEventOnDrawCountChanged(Action<int> Event)
+        {
+        }
+
 
     }
 

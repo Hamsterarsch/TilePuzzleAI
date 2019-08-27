@@ -36,11 +36,11 @@ namespace PuzzleTests
         private void RegisterAndTriggerWinEvent()
         {
             view.SetEventOnGameWon(OnGameWon);
-            gameView.NotifyOnGameWon();
+            gameView.NotifyOnGameWon(1);
 
         }
 
-        private void OnGameWon()
+        private void OnGameWon(int usedDraws)
         {
             bWasGameWonTriggered = true;
         }

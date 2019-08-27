@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+
 
 namespace PuzzleApp
 {
@@ -24,9 +21,11 @@ namespace PuzzleApp
 
         }
 
+
+
         public int GetExpectedBoardControlCount()
         {
-            return board.SizeInCells() * 2 + 1;
+            return board.GetCellAmount() + 1;//add the layout control too
 
         }
 

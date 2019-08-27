@@ -10,9 +10,9 @@ namespace PuzzleTests
     public class PuzzleSolverTests
     {
         [TestMethod]
-        public void Solve2x2()
+        public void Solve3x3()
         {
-            var board = new SquareBoard(2);
+            var board = new SquareBoard(3);
             var game = new Game(new NotifiableGameView(), board);
             var solver = new PuzzleSolver(board);
 
@@ -34,23 +34,6 @@ namespace PuzzleTests
                 }
 
             }
-
-        [TestMethod]
-        public void Solve3x3()
-        {
-            var board = new SquareBoard(3);
-            var game = new Game(new NotifiableGameView(), board);
-            var solver = new PuzzleSolver(board);
-
-            var solutionPath = solver.GetMovesToSolution();
-            Assert.IsTrue(solutionPath.Count > 0, "The puzzle was already solved");
-
-            ApplySolutionPathToGame(game, solutionPath);
-
-            Assert.IsTrue(game.IsCompleted());
-
-
-        }
 
         [TestMethod]
         public void Solve4x4()

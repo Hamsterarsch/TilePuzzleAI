@@ -1,12 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace PuzzleApp
 {
+    interface Priority
+    {
+        float Priority();
+
+    }
 
     class PriorityQueue<t_Item> where t_Item : Priority
     {
@@ -27,6 +30,9 @@ namespace PuzzleApp
 
         }
 
+
+
+
         public void Enqueue(t_Item item)
         {
             HashSet<t_Item> bucket = null;
@@ -36,13 +42,26 @@ namespace PuzzleApp
             }
             else
             {
-                bucket = new HashSet<t_Item>(comparer) { item };
+                bucket = MakeNewBucketForItem(item);
                 list.Add(Math.Abs(item.Priority()), bucket);
             }
 
             ++count;
 
         }
+
+            private HashSet<t_Item> MakeNewBucketForItem(t_Item item)
+            {
+                if (comparer != null)
+                {
+                    return new HashSet<t_Item>(comparer) { item };
+                }
+
+                return new HashSet<t_Item> { item };
+                
+            }
+
+
 
         public t_Item Dequeue()
         {
@@ -97,5 +116,6 @@ namespace PuzzleApp
 
 
     }
+
 
 }

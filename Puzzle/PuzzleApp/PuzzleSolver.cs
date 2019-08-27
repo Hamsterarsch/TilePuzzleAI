@@ -1,97 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
-using System.Windows.Forms.VisualStyles;
+﻿using System.Collections.Generic;
+
 
 namespace PuzzleApp
 {
-    interface Priority
-    {
-        float Priority();
-
-    }
-
-    class Node : Priority
-    {
-        public SquareBoard board;
-        public int estimation;
-        public readonly int cost;//does this matter as property of the state in open closed searches ?
-        public readonly Node parent;
-        public readonly CellIndices moveToThis;
-
-        public Node(SquareBoard board, int cost, Node parent, CellIndices moveToThis)
-        {
-            this.parent = parent;
-            this.board = board;
-            this.cost = cost;
-            this.estimation = board.GetManhattenDistFromSolution() + cost;
-            this.moveToThis = moveToThis;
-        }
-
-
-        public static bool operator ==(Node Lhs, Node Rhs)
-        {
-            if (object.ReferenceEquals(Lhs, null))
-            {
-                return object.ReferenceEquals(Rhs, null);
-            }
-
-            if (object.ReferenceEquals(Rhs, null))
-            {
-                return object.ReferenceEquals(Lhs, null);
-            }
-
-            return Lhs.estimation == Rhs.estimation
-                   && Lhs.board == Rhs.board;
-
-        }
-
-        public static bool operator !=(Node Lhs, Node Rhs)
-        {
-            return !(Lhs == Rhs);
-
-        }
-
-
-        public override int GetHashCode()
-        {
-            unchecked
-            {
-                return (board.GetHashCode() * 397) ^ estimation;
-            }
-        }
-
-        public float Priority()
-        {
-            return estimation;
-
-        }
-
-
-    }
-
-    class NodeEqualityComparer : IEqualityComparer<Node>
-    {
-        public bool Equals(Node x, Node y)
-        {
-            return x == y;
-
-        }
-
-        public int GetHashCode(Node obj)
-        {
-            return obj.GetHashCode();
-
-        }
-
-    }
-
     class PuzzleSolver
     {
         private SquareBoard board;
@@ -104,9 +15,14 @@ namespace PuzzleApp
             closed = new HashSet<Node>(new NodeEqualityComparer());
 
             open = new PriorityQueue<Node>();
-            open.Enqueue(new Node(board, 0, null, new CellIndices(0,0)));
-            
+            AddInitialStateToOpen();
+
         }
+
+            private void AddInitialStateToOpen()
+            {
+                open.Enqueue(new Node(board, 0, 0, null, new CellIndices(0, 0)));
+            }
 
         public List<CellIndices> GetMovesToSolution()
         {
@@ -148,10 +64,10 @@ namespace PuzzleApp
             {
                 var solutionPath = new List<CellIndices>();
                 var currentState = state;
-                while (currentState.parent != null)
+                while (currentState.HasAParent())
                 {
-                    solutionPath.Add(currentState.moveToThis);
-                    currentState = currentState.parent;
+                    solutionPath.Add(currentState.GetMoveToThis());
+                    currentState = currentState.Parent();
                 }
 
                 solutionPath.Reverse();
@@ -161,41 +77,50 @@ namespace PuzzleApp
 
             private void AddSuccessorsToOpen(Node state)
             {
-                foreach (Node node in GetSuccessorStates(state))
+                foreach (Node successor in GetSuccessorStates(state))
                 {
-                    var bIsInClosed = closed.Contains(node);
-                    var bIsInOpen = open.Contains(node);
+                    var openContainsSucessor = open.Contains(successor);
 
-                    if ((bIsInClosed || bIsInOpen))
+                    if (closed.Contains(successor) || openContainsSucessor)
                     {
                         continue;
                     }
 
-                    if (!bIsInOpen)
+                    if (!openContainsSucessor)
                     {
-                        open.Enqueue(node);
+                        open.Enqueue(successor);
                     }
                 }
 
             }
 
-            private Node[] GetSuccessorStates(Node state)
-            {
-                var generator = new MoveGenerator(state.board);
-                var moves = generator.GetMoves();
-
-                var successors = new Node[moves.Length];
-                for (int i = 0; i < moves.Length; ++i)
+                private Node[] GetSuccessorStates(Node state)
                 {
-                    var board = new SquareBoard(state.board);
-                    board.SwapCells(board.GetEmptyCellPos(), moves[i]);
+                    var generator = new MoveGenerator(state.board);
+                    var moves = generator.GetMoves();
 
-                    successors[i] = new Node(board, state.cost + 1, state, moves[i]);
+                    var successors = new Node[moves.Length];
+                    for (int i = 0; i < moves.Length; ++i)
+                    {
+                        var board = new SquareBoard(state.board);
+                        board.SwapCells(board.GetEmptyCellPos(), moves[i]);
+
+                        var successorCost = state.Cost() + 1;
+                        successors[i] = new Node
+                        (
+                            board,
+                            successorCost,
+                            board.GetManhattanDistFromCompletion() + successorCost,
+                            state,
+                            moves[i]
+                        );
+                    }
+
+                    return successors;
+
                 }
 
-                return successors;
-
-            }
+                    
 
 
     }

@@ -17,22 +17,18 @@
 
         }
 
-        public override int GetHashCode()
-        {
-            return correctPosition.GetHashCode();
 
-        }
 
         public static bool operator ==(Cell Lhs, Cell Rhs)
         {
-            if (object.ReferenceEquals(Lhs, null))
+            if (ReferenceEquals(Lhs, null))
             {
-                return object.ReferenceEquals(Rhs, null);
+                return ReferenceEquals(Rhs, null);
             }
 
-            if (object.ReferenceEquals(Rhs, null))
+            if (ReferenceEquals(Rhs, null))
             {
-                return object.ReferenceEquals(Lhs, null);
+                return ReferenceEquals(Lhs, null);
             }
 
             return Lhs.correctPosition == Rhs.correctPosition;
@@ -42,6 +38,14 @@
         public static bool operator !=(Cell Lhs, Cell Rhs)
         {
             return !(Lhs == Rhs);
+
+        }
+
+
+
+        public override int GetHashCode()
+        {
+            return correctPosition.GetHashCode();
 
         }
 

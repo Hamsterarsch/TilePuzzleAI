@@ -1,11 +1,6 @@
 ﻿using System;
-using System.CodeDom;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+
 
 namespace PuzzleApp
 {
@@ -15,6 +10,7 @@ namespace PuzzleApp
         private Cell[,] cells;
         private CellIndices emptyCellPos;
         private int correctlyOrderedCells;
+
 
         public static bool operator ==(SquareBoard Lhs, SquareBoard Rhs)
         {
@@ -50,6 +46,9 @@ namespace PuzzleApp
 
         }
 
+
+
+
         public SquareBoard(int size)
         {
             this.size = size;
@@ -58,28 +57,6 @@ namespace PuzzleApp
             
             InitCells(cells);
 
-        }
-
-        public SquareBoard(SquareBoard other)
-        {
-            this.size = other.size;
-            this.correctlyOrderedCells = other.correctlyOrderedCells;
-            this.emptyCellPos = other.emptyCellPos;
-
-            this.cells = new Cell[size, size];
-            for (int columnIndex = 0; columnIndex <= other.cells.GetUpperBound(0); ++columnIndex)
-            {
-                for (int rowIndex = 0; rowIndex <= other.cells.GetUpperBound(1); ++rowIndex)
-                {
-                    if (other.cells[columnIndex, rowIndex] == null)
-                    {
-                        continue;
-                    }
-
-                    this.cells[columnIndex, rowIndex] = new Cell(other.cells[columnIndex, rowIndex]);
-                }
-            }
-            
         }
 
             private void InitCells(Cell[,] cells)
@@ -127,6 +104,48 @@ namespace PuzzleApp
 
                     }
 
+        public SquareBoard(SquareBoard other)
+        {
+            this.size = other.size;
+            this.correctlyOrderedCells = other.correctlyOrderedCells;
+            this.emptyCellPos = other.emptyCellPos;
+
+            this.cells = new Cell[size, size];
+            CopyCellsFrom(ref other.cells, ref this.cells);
+
+        }
+
+            private void CopyCellsFrom(ref Cell[,] from, ref Cell[,] to)
+            {
+                for (int columnIndex = 0; columnIndex <= from.GetUpperBound(0); ++columnIndex)
+                {
+                    CopyCellColumns(ref from, ref to, columnIndex);
+                }
+
+            }
+
+                private void CopyCellColumns(ref Cell[,] from, ref Cell[,] to, int columnIndex)
+                {
+                    for (int rowIndex = 0; rowIndex <= from.GetUpperBound(1); ++rowIndex)
+                    {
+                        CopyCells(ref from, ref to, columnIndex, rowIndex);
+                    }
+
+                }
+
+                    private void CopyCells(ref Cell[,] from, ref Cell[,] to, int columnIndex, int rowIndex)
+                    {
+                        if (from[columnIndex, rowIndex] == null)
+                        {
+                            return;
+                        }
+
+                        to[columnIndex, rowIndex] = new Cell(from[columnIndex, rowIndex]);
+
+                    }
+
+        
+
         public override int GetHashCode()
         {
             unchecked
@@ -140,42 +159,22 @@ namespace PuzzleApp
 
         }
 
-        private int GetCellHash()
-        {
-            var hashCode = cells.Length;
-            foreach (Cell cell in cells)
+            private int GetCellHash()
             {
-                unchecked
+                var hashCode = cells.Length;
+                foreach (Cell cell in cells)
                 {
-                    hashCode = hashCode * (cell == null ? 0 : cell.GetHashCode());
-                }
-            }
-
-            return hashCode;
-
-        }
-
-        public int GetManhattenDistFromSolution()
-        {
-            int summedDistance = 0;
-            for (int columnIndex = 0; columnIndex < SizeInCells(); ++columnIndex)
-            {
-                for (int rowIndex = 0; rowIndex < SizeInCells(); ++rowIndex)
-                {
-                    var indices = new CellIndices(columnIndex, rowIndex);
-                    if (CellIsEmpty(indices))
+                    unchecked
                     {
-                        continue;
+                        hashCode = hashCode * (cell == null ? 0 : cell.GetHashCode());
                     }
-
-                    var cell = this[indices];
-                    summedDistance += Math.Abs(cell.correctPosition.row - indices.row) + Math.Abs(cell.correctPosition.column - indices.column);
                 }
+
+                return hashCode;
+
             }
 
-            return summedDistance;
 
-        }
 
         public int SizeInCells()
         {
@@ -296,12 +295,12 @@ namespace PuzzleApp
 
         public bool CellIsAdjacentToEmpty(CellIndices indices)
         {
-            return EmptyCelIsInTheSameColumnAndAdjacentRow(indices) 
+            return EmptyCellIsInTheSameColumnAndAdjacentRow(indices) 
                    || EmptyCellIsInTheSameRowAndAdjacentColumn(indices);
 
         }
 
-            private bool EmptyCelIsInTheSameColumnAndAdjacentRow(CellIndices indices)
+            private bool EmptyCellIsInTheSameColumnAndAdjacentRow(CellIndices indices)
             {
                 return indices.column == emptyCellPos.column 
                        && Math.Abs(emptyCellPos.row - indices.row) == 1;
@@ -314,7 +313,45 @@ namespace PuzzleApp
                        && Math.Abs(emptyCellPos.column - indices.column) == 1;
 
             }
-        
+
+
+
+        public int GetManhattanDistFromCompletion()
+        {
+            int summedDistance = 0;
+            for (int columnIndex = 0; columnIndex < SizeInCells(); ++columnIndex)
+            {
+                summedDistance += SumColumnDistanceFromCorrectPosition(columnIndex);
+            }
+
+            return summedDistance;
+
+        }
+
+            private int SumColumnDistanceFromCorrectPosition(int columnIndex)
+            {
+                int sum = 0;
+                for (int rowIndex = 0; rowIndex < SizeInCells(); ++rowIndex)
+                {
+                    sum += CalculateCellDistanceFromCorrectPosition(new CellIndices(columnIndex, rowIndex));
+                }
+
+                return sum;
+
+            }
+
+                private int CalculateCellDistanceFromCorrectPosition(CellIndices indices)
+                {
+                    if (CellIsEmpty(indices))
+                    {
+                        return 0;
+                    }
+
+                    var cell = this[indices];
+                    return Math.Abs(cell.correctPosition.row - indices.row)  +  Math.Abs(cell.correctPosition.column - indices.column);
+
+                }
+
 
     }
 
